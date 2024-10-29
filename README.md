@@ -43,7 +43,7 @@ First, users need to deploy the following Docker image addresses on the host mac
 
 **Java**: [openjdk:11.0.12-jdk-bullseye](https://hub.docker.com/layers/openjdk/11.0.12-jdk-bullseye/images/sha256-bc7e88c3db7a96fdc3b7e287dcb6aa9aa3de0c0b14a8038d5a2c45e2c8880e41?context=explore)
 
-**JavaScript (Node.js)**: (https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)
+**JavaScript: (https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)
 
 **C++**: [gcc:11.2.0-bullseye](https://hub.docker.com/layers/gcc/11.2.0-bullseye/images/sha256-0ae9c0984bb0c3d7c505bfa473b1e176c3e3cb2eebf96336d4b0e90862e8bc11?context=explore)
 
@@ -51,7 +51,7 @@ First, users need to deploy the following Docker image addresses on the host mac
 
 **Rust**: [rust:latest](https://hub.docker.com/layers/rust/latest/images/sha256-30452e4b244d9284fef6472be2296f0043fc8cc7eb177ec9db49c77be96ed2b9?context=explore)
 
-**TypeScript (Node.js)**: (https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)  
+**TypeScript**: (https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)  
 
 **Bash**: [bash:latest](https://hub.docker.com/layers/bitnami/bash/latest/images/sha256-18cba5e86f39c57b649276f18e2cbcb9b07a32d15939687c2b5a3ee49b3a8182?context=explore)
 
@@ -62,7 +62,7 @@ The user can create and install MPLSandbox using the following command:
 
 ```bash
 git clone git@github.com:Henryexcellentw/MPLCGS.git
-cd mplcgs
+cd 
 pip install -e .
 ```
 
