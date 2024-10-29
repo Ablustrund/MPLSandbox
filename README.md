@@ -42,8 +42,7 @@ First, users need to deploy the following Docker image addresses on the host mac
 **Python**: [python:3.9.19-bullseye](https://hub.docker.com/layers/python/3.9.19-bullseye/images/sha256-bb38c82c9e4d6c67117ff8aeb8c9b77a2d2de4738fdfbfc865b51438cb8f41d7?context=explore)
 
 **Java**: [openjdk:11.0.12-jdk-bullseye](https://hub.docker.com/layers/openjdk/11.0.12-jdk-bullseye/images/sha256-bc7e88c3db7a96fdc3b7e287dcb6aa9aa3de0c0b14a8038d5a2c45e2c8880e41?context=explore)
-
-**JavaScript: (https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)
+**JavaScript**: (https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)
 
 **C++**: [gcc:11.2.0-bullseye](https://hub.docker.com/layers/gcc/11.2.0-bullseye/images/sha256-0ae9c0984bb0c3d7c505bfa473b1e176c3e3cb2eebf96336d4b0e90862e8bc11?context=explore)
 
@@ -68,6 +67,21 @@ pip install -e .
 
 # 📚 Usage
 
+Users can start mplsandbox and run it with the following lines of code:
+
+```python
+Data_python = {   
+"question":"Define get_sum_of_two_numbers():\n    \"\"\"Write a function that takes two integers as input and returns their sum.\n\n    -----Input-----\n    \n    The input consists of multiple test cases. Each test case contains two integers $a$ and $b$ ($-10^9 \\le a, b \\le 10^9$).\n    \n    -----Output-----\n    \n    For each test case, print the sum of the two integers.\n    \n    -----Example-----\n    Input\n    3\n    1 2 ↵\n    -1 1 ↵\n    1000000000 1000000000\n    \n    Output\n    3\n    0\n    2000000000\n    \"\"\"",
+"code": 'def get_sum_of_two_numbers():\n    a, b = map(int, input().split(" "))\n    print(a * b)\nget_sum_of_two_numbers()',
+"unit_cases": {
+"inputs": ["1 2", "3 4"],
+"outputs": ["3", "7"]
+},
+"lang": "AUTO"
+}  # or a config.json file path
+executor = MPLSANDBOX(Data_python)
+result = executor.run(analysis_type="all")
+```
 
 
 
