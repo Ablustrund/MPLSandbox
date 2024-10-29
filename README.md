@@ -72,10 +72,10 @@ pip install -e .
 
 
 
-## 🧑‍💻 Developing
+# 🧑‍💻 Developing
 We are working hard to refactor and improve the open-source version of MPLSandbox to closely match the functionality of the version used internally by Meituan LLM Team.
 
-## 👀 Citation
+# 👀 Citation
 
 ```bibtex
 TMP
