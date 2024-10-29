@@ -1,0 +1,17 @@
+{
+    "question": "******",
+    "code": "use std::io::{self, Read};\n\n// 快速排序函数\nfn quick_sort(arr: &mut [i32]) {\n    if arr.len() <= 1 {\n        return;\n    }\n\n    let pivot = arr[arr.len() / 2];\n    let (mut left, mut right) = (0, arr.len() - 1);\n\n    while left <= right {\n        while arr[left] < pivot {\n            left += 1;\n        }\n        while arr[right] > pivot {\n            right = right.checked_sub(1).unwrap_or(0);\n        }\n\n        if left <= right {\n            arr.swap(left, right);\n            left += 1;\n            if right == 0 {\n                break; // 避免溢出\n            }\n            right -= 1;\n        }\n    }\n\n    if right > 0 {\n        quick_sort(&mut arr[0..=right]);\n    }\n    if left < arr.len() {\n        quick_sort(&mut arr[left..]);\n    }\n}\n\nfn main() {\n    let mut input = String::new();\n    io::stdin().read_to_string(&mut input).expect(\"Failed to read line\");\n\n    let mut numbers: Vec<i32> = input.split_whitespace()\n        .map(|num| num.parse().expect(\"Please type a number!\"))\n        .collect();\n\n    quick_sort(&mut numbers);\n\n    println!(\"Sorted numbers: {:?}\", numbers);\n}\n",
+    "unit_cases": {
+        "inputs": [
+            "34 7 23 32 5 62"
+        ],
+        "outputs": [
+            "Sorted numbers: [5, 7, 23, 32, 34, 62]"
+        ]
+    },
+    "lang": "rust",
+    "code_type": "stdin"
+}
+
+
+
