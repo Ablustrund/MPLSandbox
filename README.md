@@ -61,8 +61,8 @@ First, users need to deploy the following Docker image addresses on the host mac
 The user can create and install MPLSandbox using the following command:
 
 ```bash
-git clone git@github.com:Henryexcellentw/MPLCGS.git
-cd 
+git clone git@github.com:Ablustrund/MLPSandbox.git
+cd MPLSandbox
 pip install -e .
 ```
 
