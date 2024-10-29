@@ -39,32 +39,21 @@ It integrates these results for LLMs to improve the quality of generated code an
 
 First, users need to deploy the following Docker image addresses on the host machine, and find the corresponding images on Docker Hub through these links (download them using the `docker pull <image_name>` command):
 
-1. **Python**:
-   - [python:3.9.19-bullseye](https://hub.docker.com/layers/python/3.9.19-bullseye/images/sha256-bb38c82c9e4d6c67117ff8aeb8c9b77a2d2de4738fdfbfc865b51438cb8f41d7?context=explore)
+**Python**: [python:3.9.19-bullseye](https://hub.docker.com/layers/python/3.9.19-bullseye/images/sha256-bb38c82c9e4d6c67117ff8aeb8c9b77a2d2de4738fdfbfc865b51438cb8f41d7?context=explore)
 
-2. **Java**:
-   - [openjdk:11.0.12-jdk-bullseye](https://hub.docker.com/layers/openjdk/11.0.12-jdk-bullseye/images/sha256-bc7e88c3db7a96fdc3b7e287dcb6aa9aa3de0c0b14a8038d5a2c45e2c8880e41?context=explore)
+**Java**: [openjdk:11.0.12-jdk-bullseye](https://hub.docker.com/layers/openjdk/11.0.12-jdk-bullseye/images/sha256-bc7e88c3db7a96fdc3b7e287dcb6aa9aa3de0c0b14a8038d5a2c45e2c8880e41?context=explore)
 
-3. **JavaScript (Node.js)**:
-   - [node:22-bullseye](https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)
+**JavaScript (Node.js)**: [node:22-bullseye](https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)
 
-4. **C++**:
-   - [gcc:11.2.0-bullseye](https://hub.docker.com/layers/gcc/11.2.0-bullseye/images/sha256-0ae9c0984bb0c3d7c505bfa473b1e176c3e3cb2eebf96336d4b0e90862e8bc11?context=explore)
+**C++**: [gcc:11.2.0-bullseye](https://hub.docker.com/layers/gcc/11.2.0-bullseye/images/sha256-0ae9c0984bb0c3d7c505bfa473b1e176c3e3cb2eebf96336d4b0e90862e8bc11?context=explore)
 
-5. **Go**:
-   - [golang:1.17.0-bullseye](https://hub.docker.com/layers/golang/1.17.0-bullseye/images/sha256-dab485fcf1a09b226f57f803eb5eeb3d0f69ab0cb4e798d9f945637dbcbf3883?context=explore)
+**Go**: [golang:1.17.0-bullseye](https://hub.docker.com/layers/golang/1.17.0-bullseye/images/sha256-dab485fcf1a09b226f57f803eb5eeb3d0f69ab0cb4e798d9f945637dbcbf3883?context=explore)
 
-6. **Ruby**:
-   - [ruby:3.0.2-bullseye](https://hub.docker.com/layers/ruby/3.0.2-bullseye/images/sha256-1008773ae5426c86fc7f18c4827e8c64d3797e4b835d7c5f473be3e83efab5d6?context=explore)
+**Rust**: [rust:latest](https://hub.docker.com/layers/rust/latest/images/sha256-30452e4b244d9284fef6472be2296f0043fc8cc7eb177ec9db49c77be96ed2b9?context=explore)
 
-7. **Rust**:
-   - [rust:latest](https://hub.docker.com/layers/rust/latest/images/sha256-30452e4b244d9284fef6472be2296f0043fc8cc7eb177ec9db49c77be96ed2b9?context=explore)
+**TypeScript (Node.js)**: [node:22-bullseye](https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)  
 
-8. **TypeScript (Node.js)**:
-   - [node:22-bullseye](https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)  
-
-9. **Bash**:
-   - [bash:latest](https://hub.docker.com/layers/bitnami/bash/latest/images/sha256-18cba5e86f39c57b649276f18e2cbcb9b07a32d15939687c2b5a3ee49b3a8182?context=explore)
+**Bash**: [bash:latest](https://hub.docker.com/layers/bitnami/bash/latest/images/sha256-18cba5e86f39c57b649276f18e2cbcb9b07a32d15939687c2b5a3ee49b3a8182?context=explore)
 
 
 ## 🛠️ Install MPLSandbox
