@@ -35,6 +35,17 @@ It integrates these results for LLMs to improve the quality of generated code an
 
 # 🛠️ Requirements & Setup
 
+## Install MPLSandbox
+
+The user can create and install MPLSandbox using the following command:
+
+```bash
+git clone git@github.com:Ablustrund/MPLSandbox.git
+cd MPLSandbox
+pip install .
+# pip install -e . ## for development mode
+```
+
 ## Prepare the Docker Images
 
 First, users need to deploy the Docker images addresses on the host machine. After extensive testing, we have installed the necessary dependencies in Docker containers for various languages and packaged these custom Docker containers into the corresponding images as follows. We hope that users can directly use our open-source images because this can, to some extent, reduce the hassle of installing dependencies for various languages.
@@ -56,17 +67,13 @@ First, users need to deploy the Docker images addresses on the host machine. Aft
 
 **Bash**: [mplsandbox-bash-v1](https://drive.google.com/file/d/10WHK6vxipTf8Kq5qN6ZEWdWRIR0kXVZe/view?usp=drive_link)
 
-
-## Install MPLSandbox
-
-The user can create and install MPLSandbox using the following command:
+We recommend that users manually download these image files and then use the following command to import them into Docker:
 
 ```bash
-git clone git@github.com:Ablustrund/MPLSandbox.git
-cd MPLSandbox
-pip install .
-# pip install -e . ## for development mode
+docker load < <path_to_downloaded_image>
 ```
+If users wish to use custom images, we recommend modifying the `DefaultImage` class in `/mplsandbox/const.py` to define their own images.
+
 
 # 📚 Usage
 
@@ -87,19 +94,19 @@ result = executor.run(analysis_type="all")
 
 The specific descriptions of all fields in the data are as follows:
 
-| Parameter    | Description |
+| Field    | Description |
 |----------------|-------------|
 | `question` | (Required) Specifies the path to the code file to be executed. |
 | `code` | (Required) Specifies the code to be executed. |
 | `unit_cases` | (Required) Specifies the unit test cases, including `inputs` and expected `outputs`. |
-| `lang` | (Required) The language of the code can be set to "AUTO" for automatic recognition. |
+| `lang` | (Optional) Specifies the language of the code. If not specified, it can be set to `"AUTO"` for automatic recognition. |
 | `libraries` | (Optional) Specifies a list of dependency library names that need to be installed. |
-| `client` | (Optional) Specifies the docker client instance to be used. If not specified, the default docker environment is used. |
+| `client` | (Optional) Specifies the docker client instance to be used |
 | `image` | (Optional) Specifies the docker image used to run the code. |
 | `dockerfile` | (Optional) Specifies the path to the dockerfile used to build a custom docker image. |
-| `keep_template` | (Optional) If it is set, the template files will be kept after the code is run. |
-| `verbose` | (Optional) If it is set, verbose output will be enabled to assist with debugging and diagnosing issues. |
-| `app` | (Optional) If it is set, app mode will be enabled, facilitating the deployment of services on the server. |
+| `keep_template` | (Optional) If it is set to `True`, the template files will be kept after the code is run. |
+| `verbose` | (Optional) If it is set to `True`, verbose output will be enabled to assist with debugging and diagnosing issues. |
+| `app` | (Optional) If it is set to `True`, app mode will be enabled, facilitating the deployment of services on the server. |
 
 
 # 🧑‍💻 Developing
