@@ -11,13 +11,14 @@ from mplsandbox.utils import *
 
 class MPLSANDBOX:
     def __init__(self, *args, **kwargs):
-        if len(args) == 1 and isinstance(args[0], str):
+        if isinstance(args[0], str):
+            data_path = args[0]   
             try:
-                with open(args[0], 'r') as file:
+                with open(data_path, 'r') as file:
                     self.args = json.load(file)
             except Exception as e:
                 raise ValueError(f"Failed to read JSON from the provided path: {e}")
-        elif len(args) == 1 and isinstance(args[0], dict):
+        elif isinstance(args[0], dict):
             self.args = args[0]
         else:
             raise ValueError("Only dictionary type arguments or string paths to JSON files are accepted")
@@ -104,6 +105,7 @@ class MPLSANDBOX:
                         keep_template=keep_template,
                         verbose=verbose,
                         ) as session:
+                output = None
                 output_dict = dict()
                 analysis_list = ["all","code_basic_analysis","code_smell_analysis","code_bug_analysis","unit_test_analysis","code_efficiency_evaluation"]
                 assert analysis_type in analysis_list, f"Invalid analysis type. Available types are {analysis_list}"
@@ -111,7 +113,8 @@ class MPLSANDBOX:
                     for type in analysis_list[1:]:
                         output = session.call_tool_python(code=code,unit_input=unit_dict["inputs"][0],analysis=type)
                         output_dict[type] = output
-                return output_dict if analysis_type == "all" else output_dict[analysis_type]
+                    output = output_dict if analysis_type == "all" else output_dict[analysis_type]
+                return output
         except Exception as e:
             error_type = type(e).__name__
             error_message = str(e)
@@ -137,9 +140,34 @@ class MPLSANDBOX:
         anlysis_info = basic_info.copy().updata({"anlysis_report": anlysis_report})
         return anlysis_info
 
-    def run(self,analysis_type):
+    def run(self,analysis_type="all"):
         basic_info = self.get_basic_info()
         analysis_info = self.code_analyze_feedback(analysis_type)
-        result = basic_info["analysis_info"] = analysis_info
+        result = basic_info
+        if analysis_info is not None:
+            result["analysis_info"] = analysis_info
         return result
 
+def main():
+    parser = argparse.ArgumentParser(description="MPLSandbox Code Executor for Command Lines")
+    parser.add_argument("--data", type=str, help="Path to the JSON data file")
+    parser.add_argument("--report", type=str, help="Path to the TXT report")
+    args = parser.parse_args()
+    executor = MPLSANDBOX(args.data)
+    report = executor.run(analysis_type="all")
+    with open(args.report, 'w', encoding='utf-8') as f:
+        f.write("Report\n")
+        f.write("="*50 + "\n")
+        for key, value in report.items():
+            f.write(f"{key}:\n")
+            if isinstance(value, dict):
+                for sub_key, sub_value in value.items():
+                    f.write(f"  {sub_key}: {sub_value}\n")
+            elif isinstance(value, list):
+                f.write(f"  {', '.join(map(str, value))}\n")
+            else:
+                f.write(f"  {value}\n")
+            f.write("\n")
+
+if __name__ == "__main__":
+    main()
