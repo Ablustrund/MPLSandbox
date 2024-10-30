@@ -81,6 +81,7 @@ If users wish to use custom images, we recommend modifying the `DefaultImage` cl
 
 Users can start mplsandbox and run it with the following lines of code:
 ```python
+from mplsandbox import MPLSANDBOX
 data = {   
 "question":"Define get_sum_of_two_numbers():\n    \"\"\"Write a function that takes two integers as input and returns their sum.\n\n    -----Input-----\n    \n    The input consists of multiple test cases. Each test case contains two integers $a$ and $b$ ($-10^9 \\le a, b \\le 10^9$).\n    \n    -----Output-----\n    \n    For each test case, print the sum of the two integers.\n    \n    -----Example-----\n    Input\n    3\n    1 2 ↵\n    -1 1 ↵\n    1000000000 1000000000\n    \n    Output\n    3\n    0\n    2000000000\n    \"\"\"",
 "code": 'def get_sum_of_two_numbers():\n    a, b = map(int, input().split(" "))\n    print(a * b)\nget_sum_of_two_numbers()',
