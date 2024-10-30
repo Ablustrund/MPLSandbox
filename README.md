@@ -134,7 +134,7 @@ Then, users can access the service using the curl command or other methods, and 
 ```
 
 # 🧑‍💻 Developing
-We are working hard to refactor and improve the open-source version of MPLSandbox to closely match the functionality of the version used internally by Meituan LLM Team. Based on the feedback from Meituan's internal LLM Team, we are currently working hard to reconstruct analysis tools for languages such as Go, JavaScript, and Ruby to achieve better code analysis and automated testing.
+We are working hard to refactor and improve the open-source version of MPLSandbox to closely match the functionality of the version used internally by Meituan LLM Team. We are currently working hard to reconstruct analysis tools for languages such as Go, JavaScript, and Ruby to achieve better code analysis and automated testing.
 
 
 # 👀 Citation
