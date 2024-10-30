@@ -33,7 +33,7 @@ This module integrates compilation feedback and various analysis results to acco
 It integrates these results for LLMs to improve the quality of generated code and enhance their performance on a range of code-related tasks.
     
 
-# 🛠️ Requirements & Setup
+# 🛠️ Setup
 
 ## Install MPLSandbox
 
@@ -114,7 +114,24 @@ The specific descriptions of all fields in the data are as follows:
 
 ##  Use from the Command Line
 
+We also provide the following command-line interface to scan the `data.json` file and output the report to the `report.txt` file:
+
+```bash
+mplsandbox --data /path/to/your/data.json --report /path/to/your/report.txt
+```
+
 ##  Use as a Service
+
+MPLSandbox often serves as a node for emitting code-related signals, so configuring the corresponding services is very important. We have provided a simple service demo in the `scripts` directory, and users can run this demo with the following command:
+
+```bash
+cd scripts
+python ./app.py
+```
+Then, users can access the service using the curl command or other methods, and the format example is in `scripts/test_app.sh`
+```bash
+./test_app.sh
+```
 
 # 🧑‍💻 Developing
 We are working hard to refactor and improve the open-source version of MPLSandbox to closely match the functionality of the version used internally by Meituan LLM Team.
