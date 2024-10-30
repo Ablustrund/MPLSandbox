@@ -37,22 +37,24 @@ It integrates these results for LLMs to improve the quality of generated code an
 
 ## Prepare the Docker Images
 
-First, users need to deploy the following Docker image addresses on the host machine, and find the corresponding images on Docker Hub through these links (download them using the `docker pull <image_name>` command):
+First, users need to deploy the Docker images addresses on the host machine. After extensive testing, we have installed the necessary dependencies in Docker containers for various languages and packaged these custom Docker containers into the corresponding images as follows. We hope that users can directly use our open-source images because this can, to some extent, reduce the hassle of installing dependencies for various languages.
 
-**Python**: [python:3.9.19-bullseye](https://hub.docker.com/layers/python/3.9.19-bullseye/images/sha256-bb38c82c9e4d6c67117ff8aeb8c9b77a2d2de4738fdfbfc865b51438cb8f41d7?context=explore)
 
-**Java**: [openjdk:11.0.12-jdk-bullseye](https://hub.docker.com/layers/openjdk/11.0.12-jdk-bullseye/images/sha256-bc7e88c3db7a96fdc3b7e287dcb6aa9aa3de0c0b14a8038d5a2c45e2c8880e41?context=explore)
-**JavaScript**: (https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)
+**Python**: [mplsandbox-python-3.9.19-v1](https://drive.google.com/file/d/1kkwwj1HbODHi2-Ws0wbXCPSPt4GHr3No/view?usp=drive_link)
 
-**C++**: [gcc:11.2.0-bullseye](https://hub.docker.com/layers/gcc/11.2.0-bullseye/images/sha256-0ae9c0984bb0c3d7c505bfa473b1e176c3e3cb2eebf96336d4b0e90862e8bc11?context=explore)
+**Java**: [mplsandbox-java-11.0.12-v1](https://drive.google.com/file/d/1dtThSM-N93evTl5IRBongd3KyoNA-eUt/view?usp=drive_link)
 
-**Go**: [golang:1.17.0-bullseye](https://hub.docker.com/layers/golang/1.17.0-bullseye/images/sha256-dab485fcf1a09b226f57f803eb5eeb3d0f69ab0cb4e798d9f945637dbcbf3883?context=explore)
+**JavaScript**: [mplsandbox-javascript-22-v1](https://drive.google.com/file/d/1dtThSM-N93evTl5IRBongd3KyoNA-eUt/view?usp=drive_link)
 
-**Rust**: [rust:latest](https://hub.docker.com/layers/rust/latest/images/sha256-30452e4b244d9284fef6472be2296f0043fc8cc7eb177ec9db49c77be96ed2b9?context=explore)
+**C++**: [mplsandbox-cpp-11.2.0-v1](https://drive.google.com/file/d/1gEGoiG2WYsJp1tDQNmBp5-q1zhctG4vD/view?usp=drive_link)
 
-**TypeScript**: (https://hub.docker.com/layers/node/22-bullseye/images/sha256-6e2c6f34c1a3c2f5ec5ab0dffb8ef2f8e374a44e62cf70661de35f6ee12b09b4?context=explore)  
+**Go**: [mplsandbox-golang-1.17.0-v1](https://drive.google.com/file/d/1CZGpnoJnSn2yHEPA4WOWWFjSge2z_5lQ/view?usp=drive_link)
 
-**Bash**: [bash:latest](https://hub.docker.com/layers/bitnami/bash/latest/images/sha256-18cba5e86f39c57b649276f18e2cbcb9b07a32d15939687c2b5a3ee49b3a8182?context=explore)
+**Ruby**: [mplsandbox-ruby-3.0.2-v1](https://drive.google.com/file/d/1VrOkLUF7P9zapvTDYE5PBLqLrwHdeunu/view?usp=drive_link)
+
+**TypeScript**: [mplsandbox-typescript-1-22-v1](https://drive.google.com/file/d/1DPg_fQlwiSFG9wZpIKNB8UhC6AwdnlZn/view?usp=drive_link)  
+
+**Bash**: [mplsandbox-bash-v1](https://drive.google.com/file/d/10WHK6vxipTf8Kq5qN6ZEWdWRIR0kXVZe/view?usp=drive_link)
 
 
 ## Install MPLSandbox
@@ -62,15 +64,15 @@ The user can create and install MPLSandbox using the following command:
 ```bash
 git clone git@github.com:Ablustrund/MPLSandbox.git
 cd MPLSandbox
-pip install -e .
+pip install .
+# pip install -e . ## for development mode
 ```
 
 # 📚 Usage
 
 Users can start mplsandbox and run it with the following lines of code:
-
 ```python
-Data_python = {   
+data = {   
 "question":"Define get_sum_of_two_numbers():\n    \"\"\"Write a function that takes two integers as input and returns their sum.\n\n    -----Input-----\n    \n    The input consists of multiple test cases. Each test case contains two integers $a$ and $b$ ($-10^9 \\le a, b \\le 10^9$).\n    \n    -----Output-----\n    \n    For each test case, print the sum of the two integers.\n    \n    -----Example-----\n    Input\n    3\n    1 2 ↵\n    -1 1 ↵\n    1000000000 1000000000\n    \n    Output\n    3\n    0\n    2000000000\n    \"\"\"",
 "code": 'def get_sum_of_two_numbers():\n    a, b = map(int, input().split(" "))\n    print(a * b)\nget_sum_of_two_numbers()',
 "unit_cases": {
@@ -78,12 +80,26 @@ Data_python = {
 "outputs": ["3", "7"]
 },
 "lang": "AUTO"
-}  # or a config.json file path
-executor = MPLSANDBOX(Data_python)
+}  # or a JSON file path
+executor = MPLSANDBOX(data)
 result = executor.run(analysis_type="all")
 ```
 
+The specific descriptions of all fields in the data are as follows:
 
+| Parameter    | Description |
+|----------------|-------------|
+| `question` | (Required) Specifies the path to the code file to be executed. |
+| `code` | (Required) Specifies the code to be executed. |
+| `unit_cases` | (Required) Specifies the unit test cases, including `inputs` and expected `outputs`. |
+| `lang` | (Required) The language of the code can be set to "AUTO" for automatic recognition. |
+| `libraries` | (Optional) Specifies a list of dependency library names that need to be installed. |
+| `client` | (Optional) Specifies the docker client instance to be used. If not specified, the default docker environment is used. |
+| `image` | (Optional) Specifies the docker image used to run the code. |
+| `dockerfile` | (Optional) Specifies the path to the dockerfile used to build a custom docker image. |
+| `keep_template` | (Optional) If it is set, the template files will be kept after the code is run. |
+| `verbose` | (Optional) If it is set, verbose output will be enabled to assist with debugging and diagnosing issues. |
+| `app` | (Optional) If it is set, app mode will be enabled, facilitating the deployment of services on the server. |
 
 
 # 🧑‍💻 Developing
