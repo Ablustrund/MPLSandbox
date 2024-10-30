@@ -36,18 +36,29 @@ class CONTAINER_LANGUAGE_MAPPING:
     Language.RUBY: "e65e98d3a186",
     Language.RUST: "6c4c831e80d5",
     }
+# @dataclass
+# class DefaultImage:
+#     PYTHON = "python:3.9.19-bullseye"
+#     JAVA = "openjdk:11.0.12-jdk-bullseye"
+#     JAVASCRIPT = "node:22-bullseye"
+#     CPP = "gcc:11.2.0-bullseye"
+#     GO = "golang:1.17.0-bullseye"
+#     RUBY = "ruby:3.0.2-bullseye"
+#     RUST = "rust:latest"
+#     TYPESCRIPT = "node:22-bullseye"  
+#     BASH = "bash:latest" 
+
 @dataclass
 class DefaultImage:
-    PYTHON = "python:3.9.19-bullseye"
-    JAVA = "openjdk:11.0.12-jdk-bullseye"
-    JAVASCRIPT = "node:22-bullseye"
-    CPP = "gcc:11.2.0-bullseye"
-    GO = "golang:1.17.0-bullseye"
-    RUBY = "ruby:3.0.2-bullseye"
-    RUST = "rust:latest"
-    TYPESCRIPT = "node:22-bullseye"  
-    BASH = "bash:latest" 
-
+    PYTHON = "mplsandbox-python-3.9.19-v1"
+    JAVA = "mplsandbox-java-11.0.12-v1"
+    JAVASCRIPT = "mplsandbox-javascript-22-v1"
+    CPP = "mplsandbox-cpp-11.2.0-v1"
+    GO = "mplsandbox-golang-1.17.0-v1"
+    RUBY = "mplsandbox-ruby-3.0.2-v1"
+    RUST = "mplsandbox-rust-latest-v1"
+    TYPESCRIPT = "mplsandbox-typescript-1-22-v1"
+    BASH = "mplsandbox-bash-v1"
 
 class CodeType:
     STDIN = 'stdin'
