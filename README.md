@@ -43,7 +43,7 @@ The user can create and install MPLSandbox using the following command:
 git clone git@github.com:Ablustrund/MPLSandbox.git
 cd MPLSandbox
 pip install .
-# pip install -e . ## for development mode
+# pip install -e . ## for editable mode
 ```
 
 ## Prepare the Docker Images
