@@ -77,6 +77,8 @@ If users wish to use custom images, we recommend modifying the `DefaultImage` cl
 
 # 📚 Usage
 
+## Use in the Project
+
 Users can start mplsandbox and run it with the following lines of code:
 ```python
 data = {   
@@ -108,6 +110,10 @@ The specific descriptions of all fields in the data are as follows:
 | `verbose` | (Optional) If it is set to `True`, verbose output will be enabled to assist with debugging and diagnosing issues. |
 | `app` | (Optional) If it is set to `True`, app mode will be enabled, facilitating the deployment of services on the server. |
 
+
+##  Use from the Command Line
+
+##  Use as a Service
 
 # 🧑‍💻 Developing
 We are working hard to refactor and improve the open-source version of MPLSandbox to closely match the functionality of the version used internally by Meituan LLM Team.
