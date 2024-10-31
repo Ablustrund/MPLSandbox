@@ -140,7 +140,7 @@ We are working hard to refactor and improve the open-source version of MPLSandbo
 # 👀 Citation
 
 ```bibtex
-@misc{dou2024multiprogramminglanguagesandboxllms,
+@misc{dou2024MPLSandbox,
       title={Multi-Programming Language Sandbox for LLMs}, 
       author={Shihan Dou and Jiazheng Zhang and Jianxiang Zang and Yunbo Tao and Haoxiang Jia and Shichun Liu and Yuming Yang and Shenxi Wu and Shaoqing Zhang and Muling Wu and Changze Lv and Limao Xiong and Wenyu Zhan and Lin Zhang and Rongxiang Weng and Jingang Wang and Xunliang Cai and Yueming Wu and Ming Wen and Rui Zheng and Tao Ji and Yixin Cao and Tao Gui and Xipeng Qiu and Qi Zhang and Xuanjing Huang},
       year={2024},
