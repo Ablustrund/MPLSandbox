@@ -404,16 +404,25 @@ class AnalyzeTools:
             commands = "bandit "+"-r "+f"{code_dest_file}"+"\n"
         elif analysis == "code_basic_analysis":        
             commands = ""
-            tree = ast.parse(code)
-            captured_output = io.StringIO()
-            original_stdout = sys.stdout
-            sys.stdout = captured_output
-            astpretty.pprint(tree)
-            sys.stdout = original_stdout
-            captured_output.seek(0)  
-            ast_pretty_printed = captured_output.read()
-            fc = Flowchart.from_code(code)
-            cfg_printed = fc.flowchart()
+            try:
+                tree = ast.parse(code)
+                captured_output = io.StringIO()
+                original_stdout = sys.stdout
+                sys.stdout = captured_output
+                astpretty.pprint(tree)
+                sys.stdout = original_stdout
+                captured_output.seek(0)  
+                ast_pretty_printed = captured_output.read()
+                fc = Flowchart.from_code(code)
+                cfg_printed = fc.flowchart()
+            except Exception as e:
+                ast_pretty_printed = str(e)
+
+            try:
+                fc = Flowchart.from_code(code)
+                cfg_printed = fc.flowchart()
+            except Exception as e:
+                cfg_printed = str(e)
             tmp_output = {"ast":ast_pretty_printed, "cfg":cfg_printed}
      
         sh_file, sh_dest_file = self._prepare_sh_file(commands)
