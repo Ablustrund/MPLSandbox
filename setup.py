@@ -16,5 +16,8 @@ setup(
         'flask',
         'guesslang',
         'openai',
+        'astpretty',
+        'pyflowchart',
+        'javalang',
     ],
 )
