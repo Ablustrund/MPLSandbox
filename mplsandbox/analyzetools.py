@@ -313,7 +313,7 @@ class AnalyzeTools:
                 print(f"Creating directory {self.container.short_id}:{directory}")
 
     def _copy_file_to_container(self, src, dest):
-        print(f"Copying {src} to {self.container.short_id}:{dest}..")
+        # print(f"Copying {src} to {self.container.short_id}:{dest}..")
         tarstream = io.BytesIO()
         with tarfile.open(fileobj=tarstream, mode="w") as tar:
             tar.add(src, arcname=os.path.basename(src))
@@ -334,7 +334,7 @@ class AnalyzeTools:
         self._ensure_session_is_open()
         self._create_directory_if_needed_tmp(dest_dir)
         exit_code, output = self.container.exec_run(f"cd {dest_dir}")
-        print(f"Copying {src_dir} to {self.container.short_id}:{dest_dir}..")
+        # print(f"Copying {src_dir} to {self.container.short_id}:{dest_dir}..")
         tarstream = io.BytesIO()
         with tarfile.open(fileobj=tarstream, mode='w') as tar:
             self._add_directory_to_tar(tar, src_dir, arcname='')
@@ -387,6 +387,7 @@ class AnalyzeTools:
     
     def call_tool_python(self, code, unit_input, analysis) -> str:
         self._ensure_session_is_open()
+        # print(self.container.exec_run("pip list coverage")[1].decode('utf-8'))
         print(f"Executing Python {analysis} tool...")
         self._install_libraries_if_needed(["coverage", "bandit", "pylint"])
         unit_input = unit_input.replace("\n", "\\n")
@@ -404,16 +405,24 @@ class AnalyzeTools:
             commands = "bandit "+"-r "+f"{code_dest_file}"+"\n"
         elif analysis == "code_basic_analysis":        
             commands = ""
-            tree = ast.parse(code)
-            captured_output = io.StringIO()
-            original_stdout = sys.stdout
-            sys.stdout = captured_output
-            astpretty.pprint(tree)
-            sys.stdout = original_stdout
-            captured_output.seek(0)  
-            ast_pretty_printed = captured_output.read()
-            fc = Flowchart.from_code(code)
-            cfg_printed = fc.flowchart()
+            try:
+                tree = ast.parse(code)
+                captured_output = io.StringIO()
+                original_stdout = sys.stdout
+                sys.stdout = captured_output
+                astpretty.pprint(tree)
+                sys.stdout = original_stdout
+                captured_output.seek(0)  
+                ast_pretty_printed = captured_output.read()
+                fc = Flowchart.from_code(code)
+                cfg_printed = fc.flowchart()
+            except Exception as e:
+                ast_pretty_printed = str(e)
+            try:
+                fc = Flowchart.from_code(code)
+                cfg_printed = fc.flowchart()
+            except Exception as e:
+                cfg_printed = str(e)
             tmp_output = {"ast":ast_pretty_printed, "cfg":cfg_printed}
      
         sh_file, sh_dest_file = self._prepare_sh_file(commands)
@@ -512,5 +521,4 @@ class AnalyzeTools:
     #     self._copy_code_to_container(sh_file, sh_dest_file)
     #     output = self._execute_sh_in_container(sh_dest_file)
     #     print(output.text)
-        
-        return output.text
+    #     return output.text
