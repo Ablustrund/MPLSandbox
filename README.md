@@ -134,13 +134,21 @@ Then, users can access the service using the curl command or other methods, and 
 ```
 
 # 🧑‍💻 Developing
-We are working hard to refactor and improve the open-source version of MPLSandbox to closely match the functionality of the version used internally by Meituan LLM Team. Based on the feedback from Meituan's internal LLM Team, we are currently working hard to reconstruct analysis tools for languages such as Go, JavaScript, and Ruby to achieve better code analysis and automated testing.
+We are working hard to refactor and improve the open-source version of MPLSandbox to closely match the functionality of the version used internally by Meituan LLM Team. We are currently working hard to reconstruct analysis tools for languages such as Go, JavaScript, and Ruby to achieve better code analysis and automated testing.
 
 
 # 👀 Citation
 
 ```bibtex
-TMP
+@misc{dou2024MPLSandbox,
+      title={Multi-Programming Language Sandbox for LLMs}, 
+      author={Shihan Dou and Jiazheng Zhang and Jianxiang Zang and Yunbo Tao and Haoxiang Jia and Shichun Liu and Yuming Yang and Shenxi Wu and Shaoqing Zhang and Muling Wu and Changze Lv and Limao Xiong and Wenyu Zhan and Lin Zhang and Rongxiang Weng and Jingang Wang and Xunliang Cai and Yueming Wu and Ming Wen and Rui Zheng and Tao Ji and Yixin Cao and Tao Gui and Xipeng Qiu and Qi Zhang and Xuanjing Huang},
+      year={2024},
+      eprint={2410.23074},
+      archivePrefix={arXiv},
+      primaryClass={cs.SE},
+      url={https://arxiv.org/abs/2410.23074}, 
+}
 ```
 
 ```bibtex
