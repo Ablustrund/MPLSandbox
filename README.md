@@ -89,7 +89,7 @@ data = {
 "inputs": ["1 2", "3 4"],
 "outputs": ["3", "7"]
 },
-"lang": "AUTO"
+"lang": "python"
 }  # or a JSON file path
 executor = MPLSANDBOX(data)
 result = executor.run(analysis_type="all")
