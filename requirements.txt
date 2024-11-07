@@ -2,3 +2,6 @@ docker
 flask
 guesslang
 openai
+astpretty
+pyflowchart
+javalang
