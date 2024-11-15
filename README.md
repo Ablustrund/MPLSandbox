@@ -55,7 +55,7 @@ First, users need to deploy the Docker images addresses on the host machine. Aft
 
 **Java**: [mplsandbox-java-11.0.12-v1](https://drive.google.com/file/d/1dtThSM-N93evTl5IRBongd3KyoNA-eUt/view?usp=drive_link)
 
-**JavaScript**: [mplsandbox-javascript-22-v1](https://drive.google.com/file/d/1dtThSM-N93evTl5IRBongd3KyoNA-eUt/view?usp=drive_link)
+**JavaScript**: [mplsandbox-javascript-22-v1](https://drive.google.com/file/d/1pxHhzNm7OMij9AvJQiYcnIXKu8TrP74E/view?usp=drive_link)
 
 **C++**: [mplsandbox-cpp-11.2.0-v1](https://drive.google.com/file/d/1gEGoiG2WYsJp1tDQNmBp5-q1zhctG4vD/view?usp=drive_link)
 
