@@ -19,5 +19,6 @@ setup(
         'astpretty',
         'pyflowchart',
         'javalang',
+        'pandas'
     ],
 )
