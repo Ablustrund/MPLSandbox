@@ -110,11 +110,14 @@ class MPLSANDBOX:
                 analysis_list = ["all","code_basic_analysis","code_smell_analysis","code_bug_analysis","unit_test_analysis","code_efficiency_evaluation"]
                 assert analysis_type in analysis_list, f"Invalid analysis type. Available types are {analysis_list}"
                 if lang == "python":
-                    for type in analysis_list[1:]:
-                        output = session.call_tool_python(code=code,unit_input=unit_dict["inputs"][0],analysis=type)
-                        output_dict[type] = output
-                    output = output_dict if analysis_type == "all" else output_dict[analysis_type]
-                return output
+                    if analysis_type == "all":
+                        for sub_type in analysis_list[1:]:
+                            output = session.call_tool_python(code=code,unit_inputs=unit_dict["inputs"],analysis=sub_type)
+                            output_dict[sub_type] = output
+                    else:
+                        output = session.call_tool_python(code=code,unit_inputs=unit_dict["inputs"],analysis=analysis_type)
+                        output_dict[analysis_type] = output
+                return output_dict
         except Exception as e:
             error_type = type(e).__name__
             error_message = str(e)
@@ -124,28 +127,28 @@ class MPLSANDBOX:
             return (jsonify(error_dict), 500) if self.app else error_dict
         
 
-    def get_ai_anlysis(self, openai_api_key, model):
-        basic_info = self.get_basic_info(show_per_unit_feedback=True)
-        prompt = f"""You are a very professional {basic_info["language"]} code analyst;\n
-        Now, for the question: {basic_info["question"]};\n 
-        I have written a piece of code: {basic_info["code"]}, Please note that the code here is used for individual unit testing;\n
-        The given input is: {basic_info["input"][0]};\n 
-        the required answer is: {basic_info["required_output"][0]};\n
-        and the compiler's feedback is: {basic_info["compiler_feedback_per_unit"]};\n 
-        Please analyze the problem, given code, given input, required answer, and compiler feedback comprehensively.
-        Please revise the code according to the requirements of the problem to complete the correct code.\n
-        """
-        context = [{'role': 'user', "content": prompt}]
-        anlysis_report = get_completion_from_messages(openai_api_key, context, model) if basic_info['correct_rate'] != 1 else "The code is correct."
-        anlysis_info = basic_info.copy().updata({"anlysis_report": anlysis_report})
-        return anlysis_info
+    # def get_ai_anlysis(self, openai_api_key, model):
+    #     basic_info = self.get_basic_info(show_per_unit_feedback=True)
+    #     prompt = f"""You are a very professional {basic_info["language"]} code analyst;\n
+    #     Now, for the question: {basic_info["question"]};\n 
+    #     I have written a piece of code: {basic_info["code"]}, Please note that the code here is used for individual unit testing;\n
+    #     The given input is: {basic_info["input"][0]};\n 
+    #     the required answer is: {basic_info["required_output"][0]};\n
+    #     and the compiler's feedback is: {basic_info["compiler_feedback_per_unit"]};\n 
+    #     Please analyze the problem, given code, given input, required answer, and compiler feedback comprehensively.
+    #     Please revise the code according to the requirements of the problem to complete the correct code.\n
+    #     """
+    #     context = [{'role': 'user', "content": prompt}]
+    #     anlysis_report = get_completion_from_messages(openai_api_key, context, model) if basic_info['correct_rate'] != 1 else "The code is correct."
+    #     anlysis_info = basic_info.copy().updata({"anlysis_report": anlysis_report})
+    #     return anlysis_info
 
     def run(self,analysis_type="all"):
         basic_info = self.get_basic_info()
         analysis_info = self.code_analyze_feedback(analysis_type)
         result = basic_info
         if analysis_info is not None:
-            result["analysis_info"] = analysis_info
+            result.update(analysis_info)
         return result
 
 def main():
