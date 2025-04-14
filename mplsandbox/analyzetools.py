@@ -24,6 +24,7 @@ import astpretty
 from pyflowchart import Flowchart
 import javalang
 import sys
+import re
 
 class AnalyzeTools:
     def __init__(
@@ -385,26 +386,33 @@ class AnalyzeTools:
         self.run(code, unit_input, libraries)
 
     
-    def call_tool_python(self, code, unit_input, analysis) -> str:
+    def call_tool_python(self, code, unit_inputs, analysis) -> str:
         self._ensure_session_is_open()
         # print(self.container.exec_run("pip list coverage")[1].decode('utf-8'))
-        print(f"Executing Python {analysis} tool...")
+        analysis_info = analysis.replace("_"," ")
+        print(f"Executing Python {analysis_info}...")
         self._install_libraries_if_needed(["coverage", "bandit", "pylint"])
-        unit_input = unit_input.replace("\n", "\\n")
-        tmp_output = None
+        commands = []
+        tmp_outputs = {}
         code_file, code_dest_file = self._prepare_code_file(code) 
         if analysis == "code_smell_analysis":
-            commands = "pylint "+code_dest_file+"\n"
+            command = "pylint "+code_dest_file+"\n"
+            commands.append(command)
         elif analysis == "unit_test_analysis":
-            # commands = "coverage\t"+"run "+code_dest_file+"\n"+"coverage\t"+"report"+"\n"
-            commands = f'echo "{unit_input}"' +f" | coverage run {code_dest_file}"+"\n"+"coverage "+"report"+"\n" ####for stdin
+            for unit_input in unit_inputs:
+                unit_input = unit_input.replace("\n", "\\n")
+                command = f'echo "{unit_input}"' +f" | coverage run {code_dest_file}"+"\n"+"coverage "+"report"+"\n" 
+                commands.append(command)
         elif analysis == "code_efficiency_evaluation":
-            # commands = "python "+"-m "+"cProfile "+code_dest_file+"\n" ####for fc
-            commands = f'echo "{unit_input}"' +f" | python -m cProfile {code_dest_file}"+"\n" ####for stdin
+            for unit_input in unit_inputs:
+                unit_input = unit_input.replace("\n", "\\n")
+                command = f'echo "{unit_input}"' +f" | python -m cProfile {code_dest_file}"+"\n" 
+                commands.append(command)
         elif analysis == "code_bug_analysis":
-            commands = "bandit "+"-r "+f"{code_dest_file}"+"\n"
+            command = "bandit "+"-r "+f"{code_dest_file}"+"\n"
+            commands.append(command)
         elif analysis == "code_basic_analysis":        
-            commands = ""
+            command = ""
             try:
                 tree = ast.parse(code)
                 captured_output = io.StringIO()
@@ -423,13 +431,75 @@ class AnalyzeTools:
                 cfg_printed = fc.flowchart()
             except Exception as e:
                 cfg_printed = str(e)
-            tmp_output = {"ast":ast_pretty_printed, "cfg":cfg_printed}
-     
-        sh_file, sh_dest_file = self._prepare_sh_file(commands)
-        self._copy_code_to_container(code_file, code_dest_file)
-        self._copy_code_to_container(sh_file, sh_dest_file)
-        output = self._execute_sh_in_container(sh_dest_file)
-        return tmp_output if tmp_output else output.text
+            tmp_outputs = {"ast":ast_pretty_printed, "cfg":cfg_printed}
+        outputs = []
+        for i, command in enumerate(commands):
+            sh_file, sh_dest_file = self._prepare_sh_file(command)
+            self._copy_code_to_container(code_file, code_dest_file)
+            self._copy_code_to_container(sh_file, sh_dest_file)
+            output = self._execute_sh_in_container(sh_dest_file).text
+            if analysis == "unit_test_analysis":
+                output = re.sub(r'^\d+\\r\\n', '', output, count=1)
+            outputs.append(output)
+           
+        if analysis == "code_basic_analysis":
+            return tmp_outputs
+        else:
+            if len(outputs) == 1:
+                return outputs[0]
+            else:
+                outputs_dict = {}
+                if analysis == "unit_test_analysis":
+                    for unit_input, output in zip(unit_inputs, outputs):
+                        outputs_dict.update({unit_input : output})
+                    result = []
+                    
+                    for input_key, output_str in outputs_dict.items():
+                        cleaned_str = re.sub(r'^\d+\r\n', '', output_str)  
+                        lines = cleaned_str.split('\r\n')
+                        
+                        total_line = next(line for line in lines if "TOTAL" in line)
+                        parts = re.split(r'\s+', total_line.strip())
+                        
+                        result.append({
+                            "Unit Input": input_key,
+                            "Total Lines": int(parts[1]),
+                            "Miss": int(parts[2]),
+                            "Cover Rate": parts[3]
+                        })
+                else:
+                    for unit_input, output in zip(unit_inputs, outputs):
+                        outputs_dict.update({unit_input : output})
+                    result = []
+                    for input_key, output_str in outputs_dict.items():
+                        cleaned_str = re.sub(r'^\d+\r\n', '', output_str)
+                        
+                        lines = [
+                            line.strip() 
+                            for line in cleaned_str.split('\r\n') 
+                            if line.strip() and not line.startswith(('Ordered by:', 'ncalls  tottime'))
+                        ]
+                        
+                        func_data = []
+                        for line in lines:
+                            if re.match(r'^\d+\s+[\d.]+', line):  
+                                parts = re.split(r'\s+', line)
+                                func_data.append({
+                                    "ncalls": parts[0],
+                                    "tottime": f"{float(parts[1]):.6f} s",
+                                    "percall": f"{float(parts[2]):.6f} s",
+                                    "cumtime": f"{float(parts[3]):.6f} s",
+                                    "function location": parts[4]
+                                })
+                        
+                        result.append({
+                            "Unit Input": input_key,
+                            "Total Calls": len(func_data),
+                            "Total Time": next((line for line in lines if "function calls in" in line), ""),
+                            "Functions": func_data
+                        })
+                
+                return result
 
     # def call_tool_java(self, code, tool_name):
     #     print("Executing Java tool...")
