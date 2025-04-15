@@ -1,0 +1,1377 @@
+[
+    {
+        "prompt": "\ndef FsxrN():\n    \"\"\"\"Duel!\"\n\nBetting on the lovely princess Claris, the duel between Tokitsukaze and Quailty has started.\n\nThere are $n$ cards in a row. Each card has two sides, one of which has color. At first, some of these cards are with color sides facing up and others are with color sides facing down. Then they take turns flipping cards, in which Tokitsukaze moves first. In each move, one should choose exactly $k$ consecutive cards and flip them to the same side, which means to make their color sides all face up or all face down. If all the color sides of these $n$ cards face the same direction after one's move, the one who takes this move will win.\n\nPrincess Claris wants to know who will win the game if Tokitsukaze and Quailty are so clever that they won't make mistakes.\n\n\n-----Input-----\n\nThe first line contains two integers $n$ and $k$ ($1 \\le k \\le n \\le 10^5$).\n\nThe second line contains a single string of length $n$ that only consists of $0$ and $1$, representing the situation of these $n$ cards, where the color side of the $i$-th card faces up if the $i$-th character is $1$, or otherwise, it faces down and the $i$-th character is $0$.\n\n\n-----Output-----\n\nPrint \"once again\" (without quotes) if the total number of their moves can exceed $10^9$, which is considered a draw.\n\nIn other cases, print \"tokitsukaze\" (without quotes) if Tokitsukaze will win, or \"quailty\" (without quotes) if Quailty will win.\n\nNote that the output characters are case-sensitive, and any wrong spelling would be rejected.\n\n\n-----Examples-----\nInput\n4 2\n0101\n\nOutput\nquailty\n\nInput\n6 1\n010101\n\nOutput\nonce again\n\nInput\n6 5\n010101\n\nOutput\ntokitsukaze\n\nInput\n4 1\n0011\n\nOutput\nonce again\n\n\n\n-----Note-----\n\nIn the first example, no matter how Tokitsukaze moves, there would be three cards with color sides facing the same direction after her move, and Quailty can flip the last card to this direction and win.\n\nIn the second example, no matter how Tokitsukaze moves, Quailty can choose the same card and flip back to the initial situation, which can allow the game to end in a draw.\n\nIn the third example, Tokitsukaze can win by flipping the leftmost five cards up or flipping the rightmost five cards down.\n\nThe fourth example can be explained in the same way as the second example does.\n    \"\"\"\n",
+        "canonical_solution": "import sys\nimport copy\ndef FsxrN():\n    input = sys.stdin.readline\n    n,k=list(map(int,input().split()))\n    C=list(input().strip())\n    def JUDGE(C):\n        ANS_one=0\n        ANS_zero=0\n        for c in C:\n            if c==\"0\":\n                ANS_zero+=1\n            else:\n                break\n        for c in C[::-1]:\n            if c==\"0\":\n                ANS_zero+=1\n            else:\n                break\n        for c in C:\n            if c==\"1\":\n                ANS_one+=1\n            else:\n                break\n        for c in C[::-1]:\n            if c==\"1\":\n                ANS_one+=1\n            else:\n                break\n        if ANS_zero>=n-k or ANS_one>=n-k:\n            return 1\n        else:\n            return 0\n    if JUDGE(C)==1:\n        print(\"tokitsukaze\")\n        return\n    if k>=n-1:\n        print(\"quailty\")\n        return\n    if k<n/2:\n        print(\"once again\")\n        return\n        \n    CAN1=copy.copy(C)\n    CAN2=copy.copy(C)\n    if C[0]==\"0\":\n        for i in range(1,k+1):\n            CAN1[i]=\"1\"\n    else:\n        for i in range(1,k+1):\n            CAN1[i]=\"0\"\n    if C[-1]==\"0\":\n        for i in range(n-1,n-k-1,-1):\n            CAN2[i]=\"1\"\n    else:\n        for i in range(n-2,n-k-2,-1):\n            CAN2[i]=\"0\"\n    if JUDGE(CAN1)==1 and JUDGE(CAN2)==1:\n        print(\"quailty\")\n        return\n    else:\n        print(\"once again\")\n        return\n        \n        \n        ",
+        "inputs": [
+            "4 2\n0101\n",
+            "6 1\n010101\n",
+            "6 5\n010101\n"
+        ],
+        "outputs": [
+            "quailty\n",
+            "once again\n",
+            "tokitsukaze\n"
+        ],
+        "starter_code": "\ndef FsxrN():\n",
+        "scope": [
+            [
+                "Function Body",
+                3,
+                63
+            ],
+            [
+                "Function Body",
+                7,
+                33
+            ],
+            [
+                "For Loop Body",
+                10,
+                14
+            ],
+            [
+                "If Statement Body",
+                11,
+                14
+            ],
+            [
+                "For Loop Body",
+                15,
+                19
+            ],
+            [
+                "If Statement Body",
+                16,
+                19
+            ],
+            [
+                "For Loop Body",
+                20,
+                24
+            ],
+            [
+                "If Statement Body",
+                21,
+                24
+            ],
+            [
+                "For Loop Body",
+                25,
+                29
+            ],
+            [
+                "If Statement Body",
+                26,
+                29
+            ],
+            [
+                "If Statement Body",
+                30,
+                33
+            ],
+            [
+                "If Statement Body",
+                34,
+                36
+            ],
+            [
+                "If Statement Body",
+                37,
+                39
+            ],
+            [
+                "If Statement Body",
+                40,
+                42
+            ],
+            [
+                "If Statement Body",
+                46,
+                51
+            ],
+            [
+                "For Loop Body",
+                47,
+                48
+            ],
+            [
+                "For Loop Body",
+                50,
+                51
+            ],
+            [
+                "If Statement Body",
+                52,
+                57
+            ],
+            [
+                "For Loop Body",
+                53,
+                54
+            ],
+            [
+                "For Loop Body",
+                56,
+                57
+            ],
+            [
+                "If Statement Body",
+                58,
+                63
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 0
+    },
+    {
+        "prompt": "\ndef STBHE():\n    \"\"\"We have a graph with N vertices and M edges, and there are two people on the graph: Takahashi and Aoki.\nThe i-th edge connects Vertex U_i and Vertex V_i.\nThe time it takes to traverse this edge is D_i minutes, regardless of direction and who traverses the edge (Takahashi or Aoki).\nTakahashi departs Vertex S and Aoki departs Vertex T at the same time. Takahashi travels to Vertex T and Aoki travels to Vertex S, both in the shortest time possible.\nFind the number of the pairs of ways for Takahashi and Aoki to choose their shortest paths such that they never meet (at a vertex or on an edge) during the travel, modulo 10^9 + 7.\n\n-----Constraints-----\n - 1 \\leq N \\leq 100 000\n - 1 \\leq M \\leq 200 000\n - 1 \\leq S, T \\leq N\n - S \\neq T\n - 1 \\leq U_i, V_i \\leq N (1 \\leq i \\leq M)\n - 1 \\leq D_i \\leq 10^9 (1 \\leq i \\leq M)\n - If i \\neq j, then (U_i, V_i) \\neq (U_j, V_j) and (U_i, V_i) \\neq (V_j, U_j).\n - U_i \\neq V_i (1 \\leq i \\leq M)\n - D_i are integers.\n - The given graph is connected.\n\n-----Input-----\nInput is given from Standard Input in the following format:\nN M\nS T\nU_1 V_1 D_1\nU_2 V_2 D_2\n:\nU_M V_M D_M\n\n-----Output-----\nPrint the answer.\n\n-----Sample Input-----\n4 4\n1 3\n1 2 1\n2 3 1\n3 4 1\n4 1 1\n\n-----Sample Output-----\n2\n\nThere are two ways to choose shortest paths that satisfies the condition:\n - Takahashi chooses the path 1 \\rightarrow 2 \\rightarrow 3, and Aoki chooses the path 3 \\rightarrow 4 \\rightarrow 1.\n - Takahashi chooses the path 1 \\rightarrow 4 \\rightarrow 3, and Aoki chooses the path 3 \\rightarrow 2 \\rightarrow 1.\n    \"\"\"\n",
+        "canonical_solution": "\ndef STBHE():\n    # ARC090E\n    \n    def hoge():\n        M = 10**9 + 7\n        import sys\n        input = lambda : sys.stdin.readline().rstrip()\n    \n        n, m = map(int, input().split())\n        s, t = map(int, input().split())\n        s -= 1\n        t -= 1\n        from collections import defaultdict\n        ns = defaultdict(set)\n        for i in range(m):\n            u, v, d = map(int, input().split())\n            ns[u-1].add((v-1, d))\n            ns[v-1].add((u-1, d))\n        \n        def _dijkstra(N, s, Edge):\n            import heapq\n            geta = 10**15\n            inf = geta\n            dist = [inf] * N\n            dist[s] = 0\n            Q = [(0, s)]\n            dp = [0]*N\n            dp[s] = 1\n            while Q:\n                dn, vn = heapq.heappop(Q)\n                if dn > dist[vn]:\n                    continue\n                for vf, df in Edge[vn]:\n                    if dist[vn] + df < dist[vf]:\n                        dist[vf] = dist[vn] + df\n                        dp[vf] = dp[vn]\n                        heapq.heappush(Q, (dn + df,vf))\n                    elif dist[vn] + df == dist[vf]:\n                        dp[vf] = (dp[vf] + dp[vn]) % M\n            return dist, dp\n    \n        def dijkstra(start):\n            import heapq\n            vals = [None] * n\n            nums = [None] * n\n            nums[start] = 1\n            h = [(0, start)] # (距離, ノード番号)\n            vals[start] = 0\n            while h:\n                val, u = heapq.heappop(h)\n                for v, d in ns[u]:\n                    if vals[v] is None or vals[v]>val+d:\n                        vals[v] = val+d\n                        nums[v] = nums[u]\n                        heapq.heappush(h, (vals[v], v))\n                    elif vals[v] is not None and vals[v]==val+d:\n                        nums[v] = (nums[v] + nums[u]) % M\n            return vals, nums\n        \n        vals1, nums1 = dijkstra(s)\n        vals2, nums2 = dijkstra(t)\n        \n        T = vals1[t]\n    \n        c1 = 0 # 頂点で衝突するペアの数\n        c2 = 0 # エッジ(端点除く)で衝突するペアの数\n        \n        for u in range(n):\n            if 2*vals1[u]==T and 2*vals2[u]==T:\n                c1 = (c1 + pow((nums1[u] * nums2[u]), 2, M)) % M\n            for v,d in ns[u]:\n                if (vals1[u]+d+vals2[v]==T) and (2*vals1[u] < T < 2*(vals1[u] + d)):\n                    c2 = (c2 + (nums1[u] * nums2[v])**2) % M\n        print((nums1[t]*nums2[s] - (c1+c2)) % M)\n    hoge()",
+        "inputs": [
+            "4 4\n1 3\n1 2 1\n2 3 1\n3 4 1\n4 1 1\n",
+            "3 3\n1 3\n1 2 1\n2 3 1\n3 1 2\n",
+            "3 3\n1 3\n1 2 1\n2 3 1\n3 1 2\n"
+        ],
+        "outputs": [
+            "2\n",
+            "2\n",
+            "2\n"
+        ],
+        "starter_code": "\ndef STBHE():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                76
+            ],
+            [
+                "Function Body",
+                5,
+                75
+            ],
+            [
+                "Lambda Expression",
+                8,
+                8
+            ],
+            [
+                "For Loop Body",
+                16,
+                19
+            ],
+            [
+                "Function Body",
+                21,
+                41
+            ],
+            [
+                "While Loop Body",
+                30,
+                40
+            ],
+            [
+                "If Statement Body",
+                32,
+                33
+            ],
+            [
+                "For Loop Body",
+                34,
+                40
+            ],
+            [
+                "If Statement Body",
+                35,
+                40
+            ],
+            [
+                "If Statement Body",
+                39,
+                40
+            ],
+            [
+                "Function Body",
+                43,
+                59
+            ],
+            [
+                "While Loop Body",
+                50,
+                58
+            ],
+            [
+                "For Loop Body",
+                52,
+                58
+            ],
+            [
+                "If Statement Body",
+                53,
+                58
+            ],
+            [
+                "If Statement Body",
+                57,
+                58
+            ],
+            [
+                "For Loop Body",
+                69,
+                74
+            ],
+            [
+                "If Statement Body",
+                70,
+                71
+            ],
+            [
+                "For Loop Body",
+                72,
+                74
+            ],
+            [
+                "If Statement Body",
+                73,
+                74
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 1
+    },
+    {
+        "prompt": "\ndef OwDJQ():\n    \"\"\"Alyona's mother wants to present an array of n non-negative integers to Alyona. The array should be special. \n\nAlyona is a capricious girl so after she gets the array, she inspects m of its subarrays. Subarray is a set of some subsequent elements of the array. The i-th subarray is described with two integers l_{i} and r_{i}, and its elements are a[l_{i}], a[l_{i} + 1], ..., a[r_{i}].\n\nAlyona is going to find mex for each of the chosen subarrays. Among these m mexes the girl is going to find the smallest. She wants this minimum mex to be as large as possible. \n\nYou are to find an array a of n elements so that the minimum mex among those chosen by Alyona subarrays is as large as possible.\n\nThe mex of a set S is a minimum possible non-negative integer that is not in S.\n\n\n-----Input-----\n\nThe first line contains two integers n and m (1 ≤ n, m ≤ 10^5).\n\nThe next m lines contain information about the subarrays chosen by Alyona. The i-th of these lines contains two integers l_{i} and r_{i} (1 ≤ l_{i} ≤ r_{i} ≤ n), that describe the subarray a[l_{i}], a[l_{i} + 1], ..., a[r_{i}].\n\n\n-----Output-----\n\nIn the first line print single integer — the maximum possible minimum mex.\n\nIn the second line print n integers — the array a. All the elements in a should be between 0 and 10^9.\n\nIt is guaranteed that there is an optimal answer in which all the elements in a are between 0 and 10^9.\n\nIf there are multiple solutions, print any of them.\n\n\n-----Examples-----\nInput\n5 3\n1 3\n2 5\n4 5\n\nOutput\n2\n1 0 2 1 0\n\nInput\n4 2\n1 4\n2 4\n\nOutput\n3\n5 2 0 1\n\n\n-----Note-----\n\nThe first example: the mex of the subarray (1, 3) is equal to 3, the mex of the subarray (2, 5) is equal to 3, the mex of the subarray (4, 5) is equal to 2 as well, thus the minumal mex among the subarrays chosen by Alyona is equal to 2.\n    \"\"\"\n",
+        "canonical_solution": "\ndef OwDJQ():\n    f=lambda : list(map(int,input().split()))\n    n,m=f()\n    lr=lambda x: x[1]-x[0]+1\n    sq=min(lr(f()) for _ in range(m))\n    print(sq)\n    x=' '.join([str(i%sq) for i in range(n)])\n    print(x)\n    ",
+        "inputs": [
+            "5 3\n1 3\n2 5\n4 5\n",
+            "4 2\n1 4\n2 4\n",
+            "1 1\n1 1\n"
+        ],
+        "outputs": [
+            "2\n0 1 0 1 0\n",
+            "3\n0 1 2 0\n",
+            "1\n0\n"
+        ],
+        "starter_code": "\ndef OwDJQ():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                9
+            ],
+            [
+                "Lambda Expression",
+                3,
+                3
+            ],
+            [
+                "Lambda Expression",
+                5,
+                5
+            ],
+            [
+                "Generator Expression",
+                6,
+                6
+            ],
+            [
+                "List Comprehension",
+                8,
+                8
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 2
+    },
+    {
+        "prompt": "\ndef yMwiQ():\n    \"\"\"Snuke's town has a subway system, consisting of N stations and M railway lines. The stations are numbered 1 through N. Each line is operated by a company. Each company has an identification number.\nThe i-th ( 1 \\leq i \\leq M ) line connects station p_i and q_i bidirectionally. There is no intermediate station. This line is operated by company c_i.\nYou can change trains at a station where multiple lines are available.\nThe fare system used in this subway system is a bit strange. When a passenger only uses lines that are operated by the same company, the fare is 1 yen (the currency of Japan). Whenever a passenger changes to a line that is operated by a different company from the current line, the passenger is charged an additional fare of 1 yen. In a case where a passenger who changed from some company A's line to another company's line changes to company A's line again, the additional fare is incurred again.\nSnuke is now at station 1 and wants to travel to station N by subway. Find the minimum required fare.\n\n-----Constraints-----\n - 2 \\leq N \\leq 10^5\n - 0 \\leq M \\leq 2×10^5\n - 1 \\leq p_i \\leq N (1 \\leq i \\leq M)\n - 1 \\leq q_i \\leq N (1 \\leq i \\leq M)\n - 1 \\leq c_i \\leq 10^6 (1 \\leq i \\leq M)\n - p_i \\neq q_i (1 \\leq i \\leq M)\n\n-----Input-----\nThe input is given from Standard Input in the following format:\nN M\np_1 q_1 c_1\n:\np_M q_M c_M\n\n-----Output-----\nPrint the minimum required fare. If it is impossible to get to station N by subway, print -1 instead.\n\n-----Sample Input-----\n3 3\n1 2 1\n2 3 1\n3 1 2\n\n-----Sample Output-----\n1\n\nUse company 1's lines: 1 → 2 → 3. The fare is 1 yen.\n    \"\"\"\n",
+        "canonical_solution": "import sys\nfrom collections import deque\ndef yMwiQ():\n    #!/usr/bin/env python3\n    input = sys.stdin.readline\n    INF = 10**9\n    n, m = map(int, input().split())\n    pqc = []\n    seen = set()\n    for i in range(n):\n        seen.add((i, 0))\n    for _ in range(m):\n        p, q, c = map(int, input().split())\n        p -= 1; q -= 1\n        pqc.append((p, q, c))\n        seen.add((p, c))\n        seen.add((q, c))\n    comp = dict()\n    for i, node in enumerate(seen):\n        comp[node] = i\n    edge = [[] for _ in range(len(comp))]\n    for key in comp.keys():\n        v, c = key\n        if c != 0:\n            frm = comp[(v, c)]\n            too = comp[(v, 0)]\n            edge[frm].append((too, 0))\n            edge[too].append((frm, 1))\n    for p, q, c in pqc:\n        frm = comp[(p, c)]\n        too = comp[(q, c)]\n        edge[frm].append((too, 0))\n        edge[too].append((frm, 0))\n    class BFS:\n        def __init__(self, adj):\n            self.adj = adj\n            self.dist = [INF] * len(adj)\n            self.q = deque()\n        def calc(self, start):\n            self.dist[start] = 0\n            self.q.append((0, start))\n            while len(self.q) != 0:\n                prov_cost, src = self.q.popleft()\n                if self.dist[src] < prov_cost:\n                    continue\n                for dest, cost in self.adj[src]:\n                    if self.dist[dest] > self.dist[src] + cost:\n                        self.dist[dest] = self.dist[src] + cost\n                        if cost == 1:\n                            self.q.append((self.dist[dest], dest))\n                        else:\n                            self.q.appendleft((self.dist[dest], dest))\n            return self.dist\n    bfs = BFS(edge)\n    bfs.calc(comp[(0, 0)])\n    ans = bfs.dist[comp[(n-1, 0)]]\n    if ans == INF:\n        print(-1)\n    else:\n        print(ans)",
+        "inputs": [
+            "3 3\n1 2 1\n2 3 1\n3 1 2\n",
+            "8 11\n1 3 1\n1 4 2\n2 3 1\n2 5 1\n3 4 3\n3 6 3\n3 7 3\n4 8 4\n5 6 1\n6 7 5\n7 8 5\n",
+            "2 0\n"
+        ],
+        "outputs": [
+            "1\n",
+            "2\n",
+            "-1\n"
+        ],
+        "starter_code": "\ndef yMwiQ():\n",
+        "scope": [
+            [
+                "Function Body",
+                3,
+                60
+            ],
+            [
+                "For Loop Body",
+                10,
+                11
+            ],
+            [
+                "For Loop Body",
+                12,
+                17
+            ],
+            [
+                "For Loop Body",
+                19,
+                20
+            ],
+            [
+                "List Comprehension",
+                21,
+                21
+            ],
+            [
+                "For Loop Body",
+                22,
+                28
+            ],
+            [
+                "If Statement Body",
+                24,
+                28
+            ],
+            [
+                "For Loop Body",
+                29,
+                33
+            ],
+            [
+                "Class Body",
+                34,
+                53
+            ],
+            [
+                "Function Body",
+                35,
+                38
+            ],
+            [
+                "Function Body",
+                39,
+                53
+            ],
+            [
+                "While Loop Body",
+                42,
+                52
+            ],
+            [
+                "If Statement Body",
+                44,
+                45
+            ],
+            [
+                "For Loop Body",
+                46,
+                52
+            ],
+            [
+                "If Statement Body",
+                47,
+                52
+            ],
+            [
+                "If Statement Body",
+                49,
+                52
+            ],
+            [
+                "If Statement Body",
+                57,
+                60
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 3
+    },
+    {
+        "prompt": "\ndef MotpB():\n    \"\"\"On the xy-plane, Snuke is going to travel from the point (x_s, y_s) to the point (x_t, y_t).\nHe can move in arbitrary directions with speed 1.\nHere, we will consider him as a point without size.\nThere are N circular barriers deployed on the plane.\nThe center and the radius of the i-th barrier are (x_i, y_i) and r_i, respectively.\nThe barriers may overlap or contain each other.\nA point on the plane is exposed to cosmic rays if the point is not within any of the barriers.\nSnuke wants to avoid exposure to cosmic rays as much as possible during the travel.\nFind the minimum possible duration of time he is exposed to cosmic rays during the travel.\n\n-----Constraints-----\n - All input values are integers.\n - -10^9 ≤ x_s, y_s, x_t, y_t ≤ 10^9\n - (x_s, y_s) ≠ (x_t, y_t)\n - 1≤N≤1,000\n - -10^9 ≤ x_i, y_i ≤ 10^9\n - 1 ≤ r_i ≤ 10^9\n\n-----Input-----\nThe input is given from Standard Input in the following format:\nx_s y_s x_t y_t\nN\nx_1 y_1 r_1\nx_2 y_2 r_2\n:\nx_N y_N r_N\n\n-----Output-----\nPrint the minimum possible duration of time Snuke is exposed to cosmic rays during the travel.\nThe output is considered correct if the absolute or relative error is at most 10^{-9}.\n\n-----Sample Input-----\n-2 -2 2 2\n1\n0 0 1\n\n-----Sample Output-----\n3.6568542495\n\nAn optimal route is as follows:\n    \"\"\"\n",
+        "canonical_solution": "\ndef MotpB():\n    def main():\n        import sys\n        input = sys.stdin.readline\n    \n        import heapq\n        def dijkstra_heap(s,g,edge):\n            #始点sから各頂点への最短距離\n            d = [10**20] * (n+2)\n            used = [True] * (n+2) #True:未確定\n            d[s] = 0\n            used[s] = False\n            edgelist = []\n            sx,sy,sr=edge[s][0],edge[s][1],edge[s][2]\n            for i in range(n+2):\n                x,y,r=edge[i][0],edge[i][1],edge[i][2]\n                dist=((x-sx)**2+(y-sy)**2)**(1/2)\n                heapq.heappush(edgelist,(max(dist-r-sr,0),i))\n            while len(edgelist):\n                minedge = heapq.heappop(edgelist)\n                #まだ使われてない頂点の中から最小の距離のものを探す\n                v = minedge[1]\n                if not used[v]:\n                    continue\n                d[v] = minedge[0]\n                used[v] = False\n                bx,by,br=edge[v][0],edge[v][1],edge[v][2]\n                for i in range(n+2):\n                    x,y,r=edge[i][0],edge[i][1],edge[i][2]\n                    dist=((x-bx)**2+(y-by)**2)**(1/2)\n                    if used[i]:\n                        heapq.heappush(edgelist,(max(dist-r-br,0)+d[v],i))\n                if not used[g]:\n                    break\n            return d[g]\n    \n        sx,sy,gx,gy = map(int,input().split()) #n:頂点数　w:辺の数\n        n=int(input())\n        edge=[(sx,sy,0),(gx,gy,0)]\n        for i in range(2,n+2):\n            x,y,r=map(int,input().split())\n            edge.append((x,y,r))\n        print(dijkstra_heap(0,1,edge))\n    \n    def __starting_point():\n        main()\n    __starting_point()",
+        "inputs": [
+            "-2 -2 2 2\n1\n0 0 1\n",
+            "-2 0 2 0\n2\n-1 0 2\n1 0 2\n",
+            "4 -2 -2 4\n3\n0 0 2\n4 0 1\n0 4 1\n"
+        ],
+        "outputs": [
+            "3.6568542494923806\n",
+            "0\n",
+            "4.0\n"
+        ],
+        "starter_code": "\ndef MotpB():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                48
+            ],
+            [
+                "Function Body",
+                3,
+                44
+            ],
+            [
+                "Function Body",
+                8,
+                36
+            ],
+            [
+                "For Loop Body",
+                16,
+                19
+            ],
+            [
+                "While Loop Body",
+                20,
+                35
+            ],
+            [
+                "If Statement Body",
+                24,
+                25
+            ],
+            [
+                "For Loop Body",
+                29,
+                33
+            ],
+            [
+                "If Statement Body",
+                32,
+                33
+            ],
+            [
+                "If Statement Body",
+                34,
+                35
+            ],
+            [
+                "For Loop Body",
+                41,
+                43
+            ],
+            [
+                "Function Body",
+                46,
+                47
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 4
+    },
+    {
+        "prompt": "\ndef nFNyU():\n    \"\"\"Polycarp is making a quest for his friends. He has already made n tasks, for each task the boy evaluated how interesting it is as an integer q_{i}, and the time t_{i} in minutes needed to complete the task. \n\nAn interesting feature of his quest is: each participant should get the task that is best suited for him, depending on his preferences. The task is chosen based on an interactive quiz that consists of some questions. The player should answer these questions with \"yes\" or \"no\". Depending on the answer to the question, the participant either moves to another question or goes to one of the tasks that are in the quest. In other words, the quest is a binary tree, its nodes contain questions and its leaves contain tasks. \n\nWe know that answering any of the questions that are asked before getting a task takes exactly one minute from the quest player. Polycarp knows that his friends are busy people and they can't participate in the quest for more than T minutes. Polycarp wants to choose some of the n tasks he made, invent the corresponding set of questions for them and use them to form an interactive quiz as a binary tree so that no matter how the player answers quiz questions, he spends at most T minutes on completing the whole quest (that is, answering all the questions and completing the task). Specifically, the quest can contain zero questions and go straight to the task. Each task can only be used once (i.e., the people who give different answers to questions should get different tasks).\n\nPolycarp wants the total \"interest\" value of the tasks involved in the quest to be as large as possible. Help him determine the maximum possible total interest value of the task considering that the quest should be completed in T minutes at any variant of answering questions.\n\n\n-----Input-----\n\nThe first line contains two integers n and T (1 ≤ n ≤ 1000, 1 ≤ T ≤ 100) — the number of tasks made by Polycarp and the maximum time a quest player should fit into.\n\nNext n lines contain two integers t_{i}, q_{i} (1 ≤ t_{i} ≤ T, 1 ≤ q_{i} ≤ 1000) each — the time in minutes needed to complete the i-th task and its interest value.\n\n\n-----Output-----\n\nPrint a single integer — the maximum possible total interest value of all the tasks in the quest.\n\n\n-----Examples-----\nInput\n5 5\n1 1\n1 1\n2 2\n3 3\n4 4\n\nOutput\n11\n\nInput\n5 5\n4 1\n4 2\n4 3\n4 4\n4 5\n\nOutput\n9\n\nInput\n2 2\n1 1\n2 10\n\nOutput\n10\n\n\n\n-----Note-----\n\nIn the first sample test all the five tasks can be complemented with four questions and joined into one quest.\n\nIn the second sample test it is impossible to use all the five tasks, but you can take two of them, the most interesting ones.\n\nIn the third sample test the optimal strategy is to include only the second task into the quest.\n\nHere is the picture that illustrates the answers to the sample tests. The blue circles represent the questions, the two arrows that go from every circle represent where a person goes depending on his answer to that question. The tasks are the red ovals. [Image]\n    \"\"\"\n",
+        "canonical_solution": "from collections import defaultdict\ndef nFNyU():\n    def __starting_point():\n        n, T = [int(_) for _ in input().split()]\n        data = defaultdict(list)\n        for i in range(n):\n            t, q = [int(_) for _ in input().split()]\n            data[T - t].append(q)\n        prev_level = []\n        for level_id in range(1, T + 1):\n            level = sorted(data[T - level_id] + prev_level, reverse=True) \n            if T - level_id <= 10:\n                max_size = 2 ** (T - level_id)\n                level = level[:max_size]\n            if len(level) % 2 == 1:\n                level.append(0)\n            prev_level = [\n                level[i] + level[i + 1]\n                for i in range(0, len(level), 2)\n            ]\n        print(prev_level[0])\n    __starting_point()",
+        "inputs": [
+            "5 5\n1 1\n1 1\n2 2\n3 3\n4 4\n",
+            "5 5\n4 1\n4 2\n4 3\n4 4\n4 5\n",
+            "2 2\n1 1\n2 10\n"
+        ],
+        "outputs": [
+            "11\n",
+            "9\n",
+            "10\n"
+        ],
+        "starter_code": "\ndef nFNyU():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                22
+            ],
+            [
+                "Function Body",
+                3,
+                21
+            ],
+            [
+                "List Comprehension",
+                4,
+                4
+            ],
+            [
+                "For Loop Body",
+                6,
+                8
+            ],
+            [
+                "List Comprehension",
+                7,
+                7
+            ],
+            [
+                "For Loop Body",
+                10,
+                20
+            ],
+            [
+                "If Statement Body",
+                12,
+                14
+            ],
+            [
+                "If Statement Body",
+                15,
+                16
+            ],
+            [
+                "List Comprehension",
+                17,
+                20
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 5
+    },
+    {
+        "prompt": "\ndef zltHT():\n    \"\"\"Let $a_1, \\ldots, a_n$ be an array of $n$ positive integers. In one operation, you can choose an index $i$ such that $a_i = i$, and remove $a_i$ from the array (after the removal, the remaining parts are concatenated).\n\nThe weight of $a$ is defined as the maximum number of elements you can remove.\n\nYou must answer $q$ independent queries $(x, y)$: after replacing the $x$ first elements of $a$ and the $y$ last elements of $a$ by $n+1$ (making them impossible to remove), what would be the weight of $a$?\n\n\n-----Input-----\n\nThe first line contains two integers $n$ and $q$ ($1 \\le n, q \\le 3 \\cdot 10^5$)  — the length of the array and the number of queries.\n\nThe second line contains $n$ integers $a_1$, $a_2$, ..., $a_n$ ($1 \\leq a_i \\leq n$) — elements of the array.\n\nThe $i$-th of the next $q$ lines contains two integers $x$ and $y$ ($x, y \\ge 0$ and $x+y < n$).\n\n\n-----Output-----\n\nPrint $q$ lines, $i$-th line should contain a single integer  — the answer to the $i$-th query.\n\n\n-----Examples-----\nInput\n13 5\n2 2 3 9 5 4 6 5 7 8 3 11 13\n3 1\n0 0\n2 4\n5 0\n0 12\n\nOutput\n5\n11\n6\n1\n0\n\nInput\n5 2\n1 4 1 2 4\n0 0\n1 0\n\nOutput\n2\n0\n\n\n\n-----Note-----\n\nExplanation of the first query:\n\nAfter making first $x = 3$ and last $y = 1$ elements impossible to remove, $a$ becomes $[\\times, \\times, \\times, 9, 5, 4, 6, 5, 7, 8, 3, 11, \\times]$ (we represent $14$ as $\\times$ for clarity).\n\nHere is a strategy that removes $5$ elements (the element removed is colored in red):  $[\\times, \\times, \\times, 9, \\color{red}{5}, 4, 6, 5, 7, 8, 3, 11, \\times]$  $[\\times, \\times, \\times, 9, 4, 6, 5, 7, 8, 3, \\color{red}{11}, \\times]$  $[\\times, \\times, \\times, 9, 4, \\color{red}{6}, 5, 7, 8, 3, \\times]$  $[\\times, \\times, \\times, 9, 4, 5, 7, \\color{red}{8}, 3, \\times]$  $[\\times, \\times, \\times, 9, 4, 5, \\color{red}{7}, 3, \\times]$  $[\\times, \\times, \\times, 9, 4, 5, 3, \\times]$ (final state) \n\nIt is impossible to remove more than $5$ elements, hence the weight is $5$.\n    \"\"\"\n",
+        "canonical_solution": "from sys import stdin\ndef zltHT():\n    def bitadd(a,w,bit):\n     \n        x = a\n        while x <= (len(bit)-1):\n            bit[x] += w\n            x += x & (-1 * x)\n     \n    def bitsum(a,bit):\n     \n        ret = 0\n        x = a\n        while x > 0:\n            ret += bit[x]\n            x -= x & (-1 * x)\n        return ret\n    class RangeBIT:\n        def __init__(self,N,indexed):\n            self.bit1 = [0] * (N+2)\n            self.bit2 = [0] * (N+2)\n            self.mode = indexed\n        def bitadd(self,a,w,bit):\n     \n            x = a\n            while x <= (len(bit)-1):\n                bit[x] += w\n                x += x & (-1 * x)\n     \n        def bitsum(self,a,bit):\n     \n            ret = 0\n            x = a\n            while x > 0:\n                ret += bit[x]\n                x -= x & (-1 * x)\n            return ret\n        \n        def add(self,l,r,w):\n            l = l + (1-self.mode)\n            r = r + (1-self.mode)\n            self.bitadd(l,-1*w*l,self.bit1)\n            self.bitadd(r,w*r,self.bit1)\n            self.bitadd(l,w,self.bit2)\n            self.bitadd(r,-1*w,self.bit2)\n        def sum(self,l,r):\n            l = l + (1-self.mode)\n            r = r + (1-self.mode)\n            ret =  self.bitsum(r,self.bit1) + r * self.bitsum(r,self.bit2)\n            ret -= self.bitsum(l,self.bit1) + l * self.bitsum(l,self.bit2)\n            return ret\n    n,q = list(map(int,stdin.readline().split()))\n    a = list(map(int,stdin.readline().split()))\n    qs = [ [] for i in range(n+1) ]\n    ans = [None] * q\n    for loop in range(q):\n        x,y = list(map(int,stdin.readline().split()))\n        l = x+1\n        r = n-y\n        qs[r].append((l,loop))\n    BIT = [0] * (n+1)\n    for r in range(1,n+1):\n        b = r-a[r-1]\n        if b >= 0:\n            L = 1\n            R = r+1\n            while R-L != 1:\n                M = (L+R)//2\n                if bitsum(M,BIT) >= b:\n                    L = M\n                else:\n                    R = M\n            if bitsum(L,BIT) >= b:\n                bitadd(1,1,BIT)\n                bitadd(L+1,-1,BIT)\n        for ql,qind in qs[r]:\n            ans[qind] = bitsum(ql,BIT)\n    for i in ans:\n        print (i)",
+        "inputs": [
+            "13 5\n2 2 3 9 5 4 6 5 7 8 3 11 13\n3 1\n0 0\n2 4\n5 0\n0 12\n",
+            "5 2\n1 4 1 2 4\n0 0\n1 0\n",
+            "1 1\n1\n0 0\n"
+        ],
+        "outputs": [
+            "5\n11\n6\n1\n0\n",
+            "2\n0\n",
+            "1\n"
+        ],
+        "starter_code": "\ndef zltHT():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                79
+            ],
+            [
+                "Function Body",
+                3,
+                8
+            ],
+            [
+                "While Loop Body",
+                6,
+                8
+            ],
+            [
+                "Function Body",
+                10,
+                17
+            ],
+            [
+                "While Loop Body",
+                14,
+                16
+            ],
+            [
+                "Class Body",
+                18,
+                51
+            ],
+            [
+                "Function Body",
+                19,
+                22
+            ],
+            [
+                "Function Body",
+                23,
+                28
+            ],
+            [
+                "While Loop Body",
+                26,
+                28
+            ],
+            [
+                "Function Body",
+                30,
+                37
+            ],
+            [
+                "While Loop Body",
+                34,
+                36
+            ],
+            [
+                "Function Body",
+                39,
+                45
+            ],
+            [
+                "Function Body",
+                46,
+                51
+            ],
+            [
+                "List Comprehension",
+                54,
+                54
+            ],
+            [
+                "For Loop Body",
+                56,
+                60
+            ],
+            [
+                "For Loop Body",
+                62,
+                77
+            ],
+            [
+                "If Statement Body",
+                64,
+                75
+            ],
+            [
+                "While Loop Body",
+                67,
+                72
+            ],
+            [
+                "If Statement Body",
+                69,
+                72
+            ],
+            [
+                "If Statement Body",
+                73,
+                75
+            ],
+            [
+                "For Loop Body",
+                76,
+                77
+            ],
+            [
+                "For Loop Body",
+                78,
+                79
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 6
+    },
+    {
+        "prompt": "\ndef gxozS():\n    \"\"\"There are $n$ cities in Berland and some pairs of them are connected by two-way roads. It is guaranteed that you can pass from any city to any other, moving along the roads. Cities are numerated from $1$ to $n$.\n\nTwo fairs are currently taking place in Berland — they are held in two different cities $a$ and $b$ ($1 \\le a, b \\le n$; $a \\ne b$).\n\nFind the number of pairs of cities $x$ and $y$ ($x \\ne a, x \\ne b, y \\ne a, y \\ne b$) such that if you go from $x$ to $y$ you will have to go through both fairs (the order of visits doesn't matter). Formally, you need to find the number of pairs of cities $x,y$ such that any path from $x$ to $y$ goes through $a$ and $b$ (in any order).\n\nPrint the required number of pairs. The order of two cities in a pair does not matter, that is, the pairs $(x,y)$ and $(y,x)$ must be taken into account only once.\n\n\n-----Input-----\n\nThe first line of the input contains an integer $t$ ($1 \\le t \\le 4\\cdot10^4$) — the number of test cases in the input. Next, $t$ test cases are specified.\n\nThe first line of each test case contains four integers $n$, $m$, $a$ and $b$ ($4 \\le n \\le 2\\cdot10^5$, $n - 1 \\le m \\le 5\\cdot10^5$, $1 \\le a,b \\le n$, $a \\ne b$) — numbers of cities and roads in Berland and numbers of two cities where fairs are held, respectively.\n\nThe following $m$ lines contain descriptions of roads between cities. Each of road description contains a pair of integers $u_i, v_i$ ($1 \\le u_i, v_i \\le n$, $u_i \\ne v_i$) — numbers of cities connected by the road.\n\nEach road is bi-directional and connects two different cities. It is guaranteed that from any city you can pass to any other by roads. There can be more than one road between a pair of cities.\n\nThe sum of the values of $n$ for all sets of input data in the test does not exceed $2\\cdot10^5$. The sum of the values of $m$ for all sets of input data in the test does not exceed $5\\cdot10^5$.\n\n\n-----Output-----\n\nPrint $t$ integers — the answers to the given test cases in the order they are written in the input.\n\n\n-----Example-----\nInput\n3\n7 7 3 5\n1 2\n2 3\n3 4\n4 5\n5 6\n6 7\n7 5\n4 5 2 3\n1 2\n2 3\n3 4\n4 1\n4 2\n4 3 2 1\n1 2\n2 3\n4 1\n\nOutput\n4\n0\n1\n    \"\"\"\n",
+        "canonical_solution": "import sys\nfrom collections import deque\ndef gxozS():\n    input = sys.stdin.readline\n    t=int(input())\n    for testcaess in range(t):\n        n,m,a,b=list(map(int,input().split()))\n        E=[[] for i in range(n+1)]\n        for i in range(m):\n            x,y=list(map(int,input().split()))\n            E[x].append(y)\n            E[y].append(x)\n        USE1=[0]*(n+1)\n        Q=deque()\n        Q.append(a)\n        USE1[a]=1\n        while Q:\n            x=Q.pop()\n            for to in E[x]:\n                if to==b:\n                    continue\n                if USE1[to]==0:\n                    USE1[to]=1\n                    Q.append(to)\n        USE2=[0]*(n+1)\n        Q=deque()\n        Q.append(b)\n        USE2[b]=1\n        while Q:\n            x=Q.pop()\n            for to in E[x]:\n                if to==a:\n                    continue\n                if USE2[to]==0:\n                    USE2[to]=1\n                    Q.append(to)\n        #print(USE1,USE2)\n        ANS1=0\n        ANS2=0\n        for i in range(n+1):\n            if i==a or i==b:\n                continue\n            if USE1[i]==1 and USE2[i]==0:\n                ANS1+=1\n            elif USE1[i]==0 and USE2[i]==1:\n                ANS2+=1\n        print(ANS1*ANS2)\n            \n        \n        ",
+        "inputs": [
+            "3\n7 7 3 5\n1 2\n2 3\n3 4\n4 5\n5 6\n6 7\n7 5\n4 5 2 3\n1 2\n2 3\n3 4\n4 1\n4 2\n4 3 2 1\n1 2\n2 3\n4 1\n"
+        ],
+        "outputs": [
+            "4\n0\n1\n"
+        ],
+        "starter_code": "\ndef gxozS():\n",
+        "scope": [
+            [
+                "Function Body",
+                3,
+                47
+            ],
+            [
+                "For Loop Body",
+                6,
+                47
+            ],
+            [
+                "List Comprehension",
+                8,
+                8
+            ],
+            [
+                "For Loop Body",
+                9,
+                12
+            ],
+            [
+                "While Loop Body",
+                17,
+                24
+            ],
+            [
+                "For Loop Body",
+                19,
+                24
+            ],
+            [
+                "If Statement Body",
+                20,
+                21
+            ],
+            [
+                "If Statement Body",
+                22,
+                24
+            ],
+            [
+                "While Loop Body",
+                29,
+                36
+            ],
+            [
+                "For Loop Body",
+                31,
+                36
+            ],
+            [
+                "If Statement Body",
+                32,
+                33
+            ],
+            [
+                "If Statement Body",
+                34,
+                36
+            ],
+            [
+                "For Loop Body",
+                40,
+                46
+            ],
+            [
+                "If Statement Body",
+                41,
+                42
+            ],
+            [
+                "If Statement Body",
+                43,
+                46
+            ],
+            [
+                "If Statement Body",
+                45,
+                46
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 7
+    },
+    {
+        "prompt": "\ndef ZMfXq():\n    \"\"\"Genos recently installed the game Zuma on his phone. In Zuma there exists a line of n gemstones, the i-th of which has color c_{i}. The goal of the game is to destroy all the gemstones in the line as quickly as possible.\n\nIn one second, Genos is able to choose exactly one continuous substring of colored gemstones that is a palindrome and remove it from the line. After the substring is removed, the remaining gemstones shift to form a solid line again. What is the minimum number of seconds needed to destroy the entire line?\n\nLet us remind, that the string (or substring) is called palindrome, if it reads same backwards or forward. In our case this means the color of the first gemstone is equal to the color of the last one, the color of the second gemstone is equal to the color of the next to last and so on.\n\n\n-----Input-----\n\nThe first line of input contains a single integer n (1 ≤ n ≤ 500) — the number of gemstones.\n\nThe second line contains n space-separated integers, the i-th of which is c_{i} (1 ≤ c_{i} ≤ n) — the color of the i-th gemstone in a line.\n\n\n-----Output-----\n\nPrint a single integer — the minimum number of seconds needed to destroy the entire line.\n\n\n-----Examples-----\nInput\n3\n1 2 1\n\nOutput\n1\n\nInput\n3\n1 2 3\n\nOutput\n3\n\nInput\n7\n1 4 4 2 3 2 1\n\nOutput\n2\n\n\n\n-----Note-----\n\nIn the first sample, Genos can destroy the entire line in one second.\n\nIn the second sample, Genos can only destroy one gemstone at a time, so destroying three gemstones takes three seconds.\n\nIn the third sample, to achieve the optimal time of two seconds, destroy palindrome 4 4 first and then destroy palindrome 1 2 3 2 1.\n    \"\"\"\n",
+        "canonical_solution": "\ndef ZMfXq():\n    n = int(input())\n    C = list(map(int, input().split()))\n    \n    dp = [[0]*n for _ in range(n)]\n    for i in range(n) :\n        dp[i][i] = 1\n    \n    for i in range(n-2, -1, -1) :\n        for j in range(i+1, n) :\n            dp[i][j] = 1 + dp[i+1][j]\n            if C[i] == C[i+1] : dp[i][j] = min( dp[i][j], 1 + (dp[i+2][j] if i+2 < n else 0) )\n            for k in range(i+2, j) :\n                if C[i] == C[k] : dp[i][j] = min( dp[i][j], dp[i+1][k-1] + dp[k+1][j] )\n            if C[i] == C[j] and j-i > 1:\n                dp[i][j] = min( dp[i][j], dp[i+1][j-1] )\n    \n    print( dp[0][n-1] )\n    \n                \n            \n    ",
+        "inputs": [
+            "3\n1 2 1\n",
+            "3\n1 2 3\n",
+            "7\n1 4 4 2 3 2 1\n"
+        ],
+        "outputs": [
+            "1\n",
+            "3\n",
+            "2\n"
+        ],
+        "starter_code": "\ndef ZMfXq():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                19
+            ],
+            [
+                "List Comprehension",
+                6,
+                6
+            ],
+            [
+                "For Loop Body",
+                7,
+                8
+            ],
+            [
+                "For Loop Body",
+                10,
+                17
+            ],
+            [
+                "For Loop Body",
+                11,
+                17
+            ],
+            [
+                "If Statement Body",
+                13,
+                13
+            ],
+            [
+                "For Loop Body",
+                14,
+                15
+            ],
+            [
+                "If Statement Body",
+                15,
+                15
+            ],
+            [
+                "If Statement Body",
+                16,
+                17
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 8
+    },
+    {
+        "prompt": "\ndef BtomI():\n    \"\"\"Snark and Philip are preparing the problemset for the upcoming pre-qualification round for semi-quarter-finals. They have a bank of n problems, and they want to select any non-empty subset of it as a problemset.\n\nk experienced teams are participating in the contest. Some of these teams already know some of the problems. To make the contest interesting for them, each of the teams should know at most half of the selected problems.\n\nDetermine if Snark and Philip can make an interesting problemset!\n\n\n-----Input-----\n\nThe first line contains two integers n, k (1 ≤ n ≤ 10^5, 1 ≤ k ≤ 4) — the number of problems and the number of experienced teams.\n\nEach of the next n lines contains k integers, each equal to 0 or 1. The j-th number in the i-th line is 1 if j-th team knows i-th problem and 0 otherwise.\n\n\n-----Output-----\n\nPrint \"YES\" (quotes for clarity), if it is possible to make an interesting problemset, and \"NO\" otherwise.\n\nYou can print each character either upper- or lowercase (\"YeS\" and \"yes\" are valid when the answer is \"YES\").\n\n\n-----Examples-----\nInput\n5 3\n1 0 1\n1 1 0\n1 0 0\n1 0 0\n1 0 0\n\nOutput\nNO\n\nInput\n3 2\n1 0\n1 1\n0 1\n\nOutput\nYES\n\n\n\n-----Note-----\n\nIn the first example you can't make any interesting problemset, because the first team knows all problems.\n\nIn the second example you can choose the first and the third problems.\n    \"\"\"\n",
+        "canonical_solution": "\ndef BtomI():\n    def bel(mask, bit):\n        return (mask & (1 << bit)) != 0\n    read = lambda: map(int, input().split())\n    n, k = read()\n    f = [0] * 100\n    for i in range(n):\n        cur = int(''.join(input().split()), 2)\n        cur ^= (1 << k) - 1\n        f[cur] = 1\n    ans = 'NO'\n    if k == 1:\n        if f[1]:\n            ans = 'YES'\n    if k == 2:\n        f1 = f2 = 0\n        for i in range(4):\n            if f[i]:\n                if bel(i, 0): f1 = 1\n                if bel(i, 1): f2 = 1\n        if f1 and f2:\n            ans = 'YES'\n    if k == 3:\n        p = [0] * 3\n        for i in range(8):\n            if f[i]:\n                for j in range(3):\n                    if bel(i, j): p[j] = 1\n        for i in range(8):\n            if f[i]:\n                if bel(i, 0) and bel(i, 1) and p[2]: ans = 'YES'\n                if bel(i, 0) and p[1] and bel(i, 2): ans = 'YES'\n                if p[0] and bel(i, 1) and bel(i, 2): ans = 'YES'\n    if k == 4:\n        for i in range(16):\n            if f[i]:\n                for j in range(16):\n                    if f[j]:\n                        if (i | j) == 15:\n                            ans = 'YES'\n    print(ans)",
+        "inputs": [
+            "5 3\n1 0 1\n1 1 0\n1 0 0\n1 0 0\n1 0 0\n",
+            "3 2\n1 0\n1 1\n0 1\n",
+            "10 2\n1 0\n1 0\n0 0\n1 1\n0 0\n1 1\n0 0\n1 1\n0 1\n0 1\n"
+        ],
+        "outputs": [
+            "NO\n",
+            "YES\n",
+            "YES\n"
+        ],
+        "starter_code": "\ndef BtomI():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                42
+            ],
+            [
+                "Function Body",
+                3,
+                4
+            ],
+            [
+                "Lambda Expression",
+                5,
+                5
+            ],
+            [
+                "For Loop Body",
+                8,
+                11
+            ],
+            [
+                "If Statement Body",
+                13,
+                15
+            ],
+            [
+                "If Statement Body",
+                14,
+                15
+            ],
+            [
+                "If Statement Body",
+                16,
+                23
+            ],
+            [
+                "For Loop Body",
+                18,
+                21
+            ],
+            [
+                "If Statement Body",
+                19,
+                21
+            ],
+            [
+                "If Statement Body",
+                20,
+                20
+            ],
+            [
+                "If Statement Body",
+                21,
+                21
+            ],
+            [
+                "If Statement Body",
+                22,
+                23
+            ],
+            [
+                "If Statement Body",
+                24,
+                34
+            ],
+            [
+                "For Loop Body",
+                26,
+                29
+            ],
+            [
+                "If Statement Body",
+                27,
+                29
+            ],
+            [
+                "For Loop Body",
+                28,
+                29
+            ],
+            [
+                "If Statement Body",
+                29,
+                29
+            ],
+            [
+                "For Loop Body",
+                30,
+                34
+            ],
+            [
+                "If Statement Body",
+                31,
+                34
+            ],
+            [
+                "If Statement Body",
+                32,
+                32
+            ],
+            [
+                "If Statement Body",
+                33,
+                33
+            ],
+            [
+                "If Statement Body",
+                34,
+                34
+            ],
+            [
+                "If Statement Body",
+                35,
+                41
+            ],
+            [
+                "For Loop Body",
+                36,
+                41
+            ],
+            [
+                "If Statement Body",
+                37,
+                41
+            ],
+            [
+                "For Loop Body",
+                38,
+                41
+            ],
+            [
+                "If Statement Body",
+                39,
+                41
+            ],
+            [
+                "If Statement Body",
+                40,
+                41
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 9
+    },
+    {
+        "prompt": "\ndef Sopfi():\n    \"\"\"Recently, a start up by two students of a state university of city F gained incredible popularity. Now it's time to start a new company. But what do we call it?\n\nThe market analysts came up with a very smart plan: the name of the company should be identical to its reflection in a mirror! In other words, if we write out the name of the company on a piece of paper in a line (horizontally, from left to right) with large English letters, then put this piece of paper in front of the mirror, then the reflection of the name in the mirror should perfectly match the line written on the piece of paper.\n\nThere are many suggestions for the company name, so coming up to the mirror with a piece of paper for each name wouldn't be sensible. The founders of the company decided to automatize this process. They asked you to write a program that can, given a word, determine whether the word is a 'mirror' word or not.\n\n\n-----Input-----\n\nThe first line contains a non-empty name that needs to be checked. The name contains at most 10^5 large English letters. The name will be written with the next sans serif font: $\\text{ABCDEFGHI JKLMNOPQRSTUVWXYZ}$\n\n\n-----Output-----\n\nPrint 'YES' (without the quotes), if the given name matches its mirror reflection. Otherwise, print 'NO' (without the quotes).\n\n\n-----Examples-----\nInput\nAHA\n\nOutput\nYES\n\nInput\nZ\n\nOutput\nNO\n\nInput\nXO\n\nOutput\nNO\n    \"\"\"\n",
+        "canonical_solution": "\ndef Sopfi():\n    s=input()\n    M={\"A\",\"H\",\"I\",\"M\",\"O\",\"T\",\"U\",\"V\",\"W\",\"X\",\"Y\"}\n    ans=\"YES\"\n    n=len(s)\n    for i in range(len(s)//2):\n        x=s[i]\n        y=s[n-i-1]\n        if(x!=y or x not in M):\n            ans=\"NO\"\n            break\n    if(n%2==1):\n        if(s[n//2] not in M):\n            ans=\"NO\"\n    print(ans)\n        \n    ",
+        "inputs": [
+            "AHA\n",
+            "Z\n",
+            "XO\n"
+        ],
+        "outputs": [
+            "YES\n",
+            "NO\n",
+            "NO\n"
+        ],
+        "starter_code": "\ndef Sopfi():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                16
+            ],
+            [
+                "For Loop Body",
+                7,
+                12
+            ],
+            [
+                "If Statement Body",
+                10,
+                12
+            ],
+            [
+                "If Statement Body",
+                13,
+                15
+            ],
+            [
+                "If Statement Body",
+                14,
+                15
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 10
+    },
+    {
+        "prompt": "\ndef dXhQN():\n    \"\"\"Haiku is a short form of Japanese poetry. A Haiku consists of three phrases with 5, 7 and 5 syllables, in this order.\nIroha is looking for X,Y,Z-Haiku (defined below) in integer sequences.\nConsider all integer sequences of length N whose elements are between 1 and 10, inclusive. Out of those 10^N sequences, how many contain an X,Y,Z-Haiku?\nHere, an integer sequence a_0, a_1, ..., a_{N-1} is said to contain an X,Y,Z-Haiku if and only if there exist four indices x, y, z, w (0 ≦ x < y < z < w ≦ N) such that all of the following are satisfied:\n - a_x + a_{x+1} + ... + a_{y-1} = X\n - a_y + a_{y+1} + ... + a_{z-1} = Y\n - a_z + a_{z+1} + ... + a_{w-1} = Z\nSince the answer can be extremely large, print the number modulo 10^9+7.\n\n-----Constraints-----\n - 3 ≦ N ≦ 40\n - 1 ≦ X ≦ 5\n - 1 ≦ Y ≦ 7\n - 1 ≦ Z ≦ 5\n\n-----Input-----\nThe input is given from Standard Input in the following format:\nN X Y Z\n\n-----Output-----\nPrint the number of the sequences that contain an X,Y,Z-Haiku, modulo 10^9+7.\n\n-----Sample Input-----\n3 5 7 5\n\n-----Sample Output-----\n1\n\nHere, the only sequence that contains a 5,7,5-Haiku is [5, 7, 5].\n    \"\"\"\n",
+        "canonical_solution": "import sys\ndef dXhQN():\n    # coding: utf-8\n    # Your code here!\n    read = sys.stdin.read\n    readline = sys.stdin.readline\n    n,X,Y,Z = list(map(int,read().split()))\n    N = 1<<(X+Y+Z)\n    NX = 1<<X\n    NY = 1<<(X+Y)\n    NZ = 1<<(X+Y+Z)\n    MX = (1<<X) - 1\n    MY = (1<<(Y+X)) - (1<<X)\n    MZ = (1<<(X+Y+Z)) - (1<<(Y+X))\n    MMX = MX<<1\n    MMY = MY<<1\n    MMZ = MZ<<1\n    dp = [0]*N\n    dp[1] = 1\n    MOD = 10**9+7\n    for _ in range(n):\n        ndp = [0]*N\n        #cnt = 0\n        #bad = 0\n        for mask in range(N):\n            if dp[mask]==0: continue\n            mx = mask&MX\n            my = mask&MY\n            mz = mask&MZ\n            \n            for j in range(1,11):\n                nmx = mx << j\n                nmx &= MMX\n                nmy = my << j\n                nmy &= MMY\n                nmz = mz << j\n                nmz &= MMZ\n                nmask = nmx|nmy|nmz|1\n                if not nmask&(1<<(X+Y+Z)):\n                    ndp[nmask] += dp[mask]\n                    ndp[nmask] %= MOD\n        dp = ndp\n        #print(sum(dp),\"sum\")\n    ans = (pow(10,n,MOD)-sum(dp))\n    print((ans%MOD))",
+        "inputs": [
+            "3 5 7 5\n",
+            "4 5 7 5\n",
+            "37 4 2 3\n"
+        ],
+        "outputs": [
+            "1\n",
+            "34\n",
+            "863912418\n"
+        ],
+        "starter_code": "\ndef dXhQN():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                45
+            ],
+            [
+                "For Loop Body",
+                21,
+                42
+            ],
+            [
+                "For Loop Body",
+                25,
+                41
+            ],
+            [
+                "If Statement Body",
+                26,
+                26
+            ],
+            [
+                "For Loop Body",
+                31,
+                41
+            ],
+            [
+                "If Statement Body",
+                39,
+                41
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 11
+    },
+    {
+        "prompt": "\ndef VGnNj():\n    \"\"\"You are given a permutation $p_1, p_2, \\ldots, p_n$.\n\nIn one move you can swap two adjacent values.\n\nYou want to perform a minimum number of moves, such that in the end there will exist a subsegment $1,2,\\ldots, k$, in other words in the end there should be an integer $i$, $1 \\leq i \\leq n-k+1$ such that $p_i = 1, p_{i+1} = 2, \\ldots, p_{i+k-1}=k$.\n\nLet $f(k)$ be the minimum number of moves that you need to make a subsegment with values $1,2,\\ldots,k$ appear in the permutation.\n\nYou need to find $f(1), f(2), \\ldots, f(n)$.\n\n\n-----Input-----\n\nThe first line of input contains one integer $n$ ($1 \\leq n \\leq 200\\,000$): the number of elements in the permutation.\n\nThe next line of input contains $n$ integers $p_1, p_2, \\ldots, p_n$: given permutation ($1 \\leq p_i \\leq n$).\n\n\n-----Output-----\n\nPrint $n$ integers, the minimum number of moves that you need to make a subsegment with values $1,2,\\ldots,k$ appear in the permutation, for $k=1, 2, \\ldots, n$.\n\n\n-----Examples-----\nInput\n5\n5 4 3 2 1\n\nOutput\n0 1 3 6 10 \n\nInput\n3\n1 2 3\n\nOutput\n0 0 0\n    \"\"\"\n",
+        "canonical_solution": "import sys\ndef VGnNj():\n    reader = (s.rstrip() for s in sys.stdin)\n    input = reader.__next__\n    class Binary_Indexed_Tree():\n        def __init__(self, n):\n            self.n = n\n            self.data = [0]*(n+1)\n        def add(self, i, x):\n            while i <= self.n:\n                self.data[i] += x\n                i += i & -i\n        def get(self, i):\n            return self.sum_range(i, i)\n        def sum(self, i):\n            ret = 0\n            while i:\n                ret += self.data[i]\n                i &= i-1\n            return ret\n        def sum_range(self, l, r):\n            return self.sum(r)-self.sum(l-1)\n        def lower_bound(self, w):\n            if w<=0:\n                return 0\n            i = 0\n            k = 1<<(self.n.bit_length())\n            while k:\n                if i+k <= self.n and self.data[i+k] < w:\n                    w -= self.data[i+k]\n                    i += k\n                k >>= 1\n            return i+1\n    n = int(input())\n    a = list(map(int, input().split()))\n    d = {j:i for i,j in enumerate(a)}\n    BIT1 = Binary_Indexed_Tree(n)\n    BIT2 = Binary_Indexed_Tree(n)\n    BIT3 = Binary_Indexed_Tree(n)\n    tentou = 0\n    ans = []\n    for i in range(n):\n        tmp = 0\n        p = d[i+1]\n        inv_p = n-p\n        tentou += BIT1.sum(inv_p)\n        BIT1.add(inv_p, 1)\n        BIT2.add(p+1, 1)\n        BIT3.add(p+1, p+1)\n        m = i//2+1\n        mean = BIT2.lower_bound(i//2+1)\n        tmp = 0\n        if i%2 == 0:\n            tmp -= m*(m-1)\n        else:\n            tmp -= m*m\n        tmp += tentou\n        left = BIT3.sum_range(1, mean)\n        right = BIT3.sum_range(mean, n)\n        if i%2 == 0:\n            left = mean*m - left\n            right = right - mean*m\n        else:\n            left = mean*m - left\n            right = right - mean*(m+1)\n        tmp += left + right\n        ans.append(tmp)\n    print(*ans)",
+        "inputs": [
+            "5\n5 4 3 2 1\n",
+            "3\n1 2 3\n",
+            "1\n1\n"
+        ],
+        "outputs": [
+            "0 1 3 6 10 \n",
+            "0 0 0 \n",
+            "0 \n"
+        ],
+        "starter_code": "\ndef VGnNj():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                68
+            ],
+            [
+                "Generator Expression",
+                3,
+                3
+            ],
+            [
+                "Class Body",
+                5,
+                33
+            ],
+            [
+                "Function Body",
+                6,
+                8
+            ],
+            [
+                "Function Body",
+                9,
+                12
+            ],
+            [
+                "While Loop Body",
+                10,
+                12
+            ],
+            [
+                "Function Body",
+                13,
+                14
+            ],
+            [
+                "Function Body",
+                15,
+                20
+            ],
+            [
+                "While Loop Body",
+                17,
+                19
+            ],
+            [
+                "Function Body",
+                21,
+                22
+            ],
+            [
+                "Function Body",
+                23,
+                33
+            ],
+            [
+                "If Statement Body",
+                24,
+                25
+            ],
+            [
+                "While Loop Body",
+                28,
+                32
+            ],
+            [
+                "If Statement Body",
+                29,
+                31
+            ],
+            [
+                "Dict Comprehension",
+                36,
+                36
+            ],
+            [
+                "For Loop Body",
+                42,
+                67
+            ],
+            [
+                "If Statement Body",
+                53,
+                56
+            ],
+            [
+                "If Statement Body",
+                60,
+                65
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 12
+    },
+    {
+        "prompt": "\ndef RPAkU():\n    \"\"\"A robot is put at the origin in a two-dimensional plane.\nInitially, the robot is facing in the positive x-axis direction.\nThis robot will be given an instruction sequence s.\ns consists of the following two kinds of letters, and will be executed in order from front to back.\n - F : Move in the current direction by distance 1.\n - T : Turn 90 degrees, either clockwise or counterclockwise.\nThe objective of the robot is to be at coordinates (x, y) after all the instructions are executed.\nDetermine whether this objective is achievable.\n\n-----Constraints-----\n - s consists of F and T.\n - 1 \\leq |s| \\leq 8 000\n - x and y are integers.\n - |x|, |y| \\leq |s|\n\n-----Input-----\nInput is given from Standard Input in the following format:\ns\nx y\n\n-----Output-----\nIf the objective is achievable, print Yes; if it is not, print No.\n\n-----Sample Input-----\nFTFFTFFF\n4 2\n\n-----Sample Output-----\nYes\n\nThe objective can be achieved by, for example, turning counterclockwise in the first T and turning clockwise in the second T.\n    \"\"\"\n",
+        "canonical_solution": "from sys import setrecursionlimit, stderr\nfrom functools import reduce\nfrom itertools import *\nfrom collections import defaultdict\nfrom bisect import *\ndef RPAkU():\n    def read():\n      return int(input())\n     \n    def reads():\n      return [int(x) for x in input().split()]\n    S = input()\n    x, y = reads()\n    qs = [len(s) for s in S.split('T')]\n    def knapsack(xs, target):\n      es = {0}\n      for x in xs:\n        es = {e - x for e in es} | {e + x for e in es}\n      return target in es\n    ans = knapsack(qs[2::2], x-qs[0]) and knapsack(qs[1::2], y)\n    print(\"Yes\" if ans else \"No\")",
+        "inputs": [
+            "FTFFTFFF\n4 2\n",
+            "FTFFTFFF\n-2 -2\n",
+            "FF\n1 0\n"
+        ],
+        "outputs": [
+            "Yes\n",
+            "Yes\n",
+            "No\n"
+        ],
+        "starter_code": "\ndef RPAkU():\n",
+        "scope": [
+            [
+                "Function Body",
+                6,
+                21
+            ],
+            [
+                "Function Body",
+                7,
+                8
+            ],
+            [
+                "Function Body",
+                10,
+                11
+            ],
+            [
+                "List Comprehension",
+                11,
+                11
+            ],
+            [
+                "List Comprehension",
+                14,
+                14
+            ],
+            [
+                "Function Body",
+                15,
+                19
+            ],
+            [
+                "For Loop Body",
+                17,
+                18
+            ],
+            [
+                "Set Comprehension",
+                18,
+                18
+            ],
+            [
+                "Set Comprehension",
+                18,
+                18
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 13
+    },
+    {
+        "prompt": "\ndef xBWvN():\n    \"\"\"There are n types of coins in Byteland. Conveniently, the denomination of the coin type k divides the denomination of the coin type k + 1, the denomination of the coin type 1 equals 1 tugrick. The ratio of the denominations of coin types k + 1 and k equals a_{k}. It is known that for each x there are at most 20 coin types of denomination x.\n\nByteasar has b_{k} coins of type k with him, and he needs to pay exactly m tugricks. It is known that Byteasar never has more than 3·10^5 coins with him. Byteasar want to know how many ways there are to pay exactly m tugricks. Two ways are different if there is an integer k such that the amount of coins of type k differs in these two ways. As all Byteland citizens, Byteasar wants to know the number of ways modulo 10^9 + 7.\n\n\n-----Input-----\n\nThe first line contains single integer n (1 ≤ n ≤ 3·10^5) — the number of coin types.\n\nThe second line contains n - 1 integers a_1, a_2, ..., a_{n} - 1 (1 ≤ a_{k} ≤ 10^9) — the ratios between the coin types denominations. It is guaranteed that for each x there are at most 20 coin types of denomination x.\n\nThe third line contains n non-negative integers b_1, b_2, ..., b_{n} — the number of coins of each type Byteasar has. It is guaranteed that the sum of these integers doesn't exceed 3·10^5.\n\nThe fourth line contains single integer m (0 ≤ m < 10^10000) — the amount in tugricks Byteasar needs to pay.\n\n\n-----Output-----\n\nPrint single integer — the number of ways to pay exactly m tugricks modulo 10^9 + 7.\n\n\n-----Examples-----\nInput\n1\n\n4\n2\n\nOutput\n1\n\nInput\n2\n1\n4 4\n2\n\nOutput\n3\n\nInput\n3\n3 3\n10 10 10\n17\n\nOutput\n6\n\n\n\n-----Note-----\n\nIn the first example Byteasar has 4 coins of denomination 1, and he has to pay 2 tugricks. There is only one way.\n\nIn the second example Byteasar has 4 coins of each of two different types of denomination 1, he has to pay 2 tugricks. There are 3 ways: pay one coin of the first type and one coin of the other, pay two coins of the first type, and pay two coins of the second type.\n\nIn the third example the denominations are equal to 1, 3, 9.\n    \"\"\"\n",
+        "canonical_solution": "\ndef xBWvN():\n    p = 1000000007\n    \n    n = int(input())\n    a = list(map(int, input().split()))\n    b = list(map(int, input().split()))\n    m = int(input())\n    \n    d = [1] * 300001\n    td = [0] * 300001\n    L = b[0]\n    for i in range(1, n):\n    \tif a[i - 1] != 1:\n    \t\tt = m % a[i - 1]\n    \t\tif L < t:\n    \t\t\tprint(0)\n    \t\t\treturn\n    \t\tm //= a[i - 1]\n    \t\tfor j in range((L - t) // a[i - 1] + 1):\n    \t\t\td[j] = d[t]\n    \t\t\tt += a[i - 1]\n    \t\tL = j\n    \tk = 0\n    \tfor j in range(L + b[i] + 1):\n    \t\tif j <= L:\n    \t\t\tk += d[j]\n    \t\tk %= p\n    \t\ttd[j] = k\n    \t\tif j >= b[i]:\n    \t\t\tk -= d[j - b[i]]\n    \tL += b[i]\n    \tfor j in range(L + 1):\n    \t\td[j] = td[j]\n    print(d[m] if m <= L else 0)",
+        "inputs": [
+            "1\n\n4\n2\n",
+            "2\n1\n4 4\n2\n",
+            "3\n3 3\n10 10 10\n17\n"
+        ],
+        "outputs": [
+            "1\n",
+            "3\n",
+            "6\n"
+        ],
+        "starter_code": "\ndef xBWvN():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                35
+            ],
+            [
+                "For Loop Body",
+                13,
+                34
+            ],
+            [
+                "If Statement Body",
+                14,
+                23
+            ],
+            [
+                "If Statement Body",
+                16,
+                18
+            ],
+            [
+                "For Loop Body",
+                20,
+                22
+            ],
+            [
+                "For Loop Body",
+                25,
+                31
+            ],
+            [
+                "If Statement Body",
+                26,
+                27
+            ],
+            [
+                "If Statement Body",
+                30,
+                31
+            ],
+            [
+                "For Loop Body",
+                33,
+                34
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 14
+    },
+    {
+        "prompt": "\ndef MDfer():\n    \"\"\"Paul hates palindromes. He assumes that string s is tolerable if each its character is one of the first p letters of the English alphabet and s doesn't contain any palindrome contiguous substring of length 2 or more.\n\nPaul has found a tolerable string s of length n. Help him find the lexicographically next tolerable string of the same length or else state that such string does not exist.\n\n\n-----Input-----\n\nThe first line contains two space-separated integers: n and p (1 ≤ n ≤ 1000; 1 ≤ p ≤ 26). The second line contains string s, consisting of n small English letters. It is guaranteed that the string is tolerable (according to the above definition).\n\n\n-----Output-----\n\nIf the lexicographically next tolerable string of the same length exists, print it. Otherwise, print \"NO\" (without the quotes).\n\n\n-----Examples-----\nInput\n3 3\ncba\n\nOutput\nNO\n\nInput\n3 4\ncba\n\nOutput\ncbd\n\nInput\n4 4\nabcd\n\nOutput\nabda\n\n\n\n-----Note-----\n\nString s is lexicographically larger (or simply larger) than string t with the same length, if there is number i, such that s_1 = t_1, ..., s_{i} = t_{i}, s_{i} + 1 > t_{i} + 1.\n\nThe lexicographically next tolerable string is the lexicographically minimum tolerable string which is larger than the given one.\n\nA palindrome is a string that reads the same forward or reversed.\n    \"\"\"\n",
+        "canonical_solution": "import sys\ndef MDfer():\n    3\n    def solve(s, k):\n        l = len(s)\n        for i in range(l-1, -1, -1):\n            prev = s[max(i-2, 0):i]\n            z = s[i] + 1\n            while z in prev:\n                z += 1\n            if z >= k:\n                continue\n            # Gotcha!\n            ret = s[:i] + [z]\n            while len(ret) < l:\n                prev = ret[max(len(ret)-2, 0):len(ret)]\n                z = 0\n                while z in prev:\n                    z += 1\n                ret.append(z)\n            return ret\n        return None\n    def __starting_point():\n        l, k = list(map(int, sys.stdin.readline().split()))\n        s = [ord(c) - ord('a') for c in sys.stdin.readline().strip()]\n        ans = solve(s, k)\n        if ans is None:\n            print('NO')\n        else:\n            print(''.join(chr(ord('a') + x) for x in ans))\n    __starting_point()",
+        "inputs": [
+            "3 3\ncba\n",
+            "3 4\ncba\n",
+            "4 4\nabcd\n"
+        ],
+        "outputs": [
+            "NO\n",
+            "cbd\n",
+            "abda\n"
+        ],
+        "starter_code": "\ndef MDfer():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                31
+            ],
+            [
+                "Function Body",
+                4,
+                22
+            ],
+            [
+                "For Loop Body",
+                6,
+                21
+            ],
+            [
+                "While Loop Body",
+                9,
+                10
+            ],
+            [
+                "If Statement Body",
+                11,
+                12
+            ],
+            [
+                "While Loop Body",
+                15,
+                20
+            ],
+            [
+                "While Loop Body",
+                18,
+                19
+            ],
+            [
+                "Function Body",
+                23,
+                30
+            ],
+            [
+                "List Comprehension",
+                25,
+                25
+            ],
+            [
+                "If Statement Body",
+                27,
+                30
+            ],
+            [
+                "Generator Expression",
+                30,
+                30
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 15
+    }
+]

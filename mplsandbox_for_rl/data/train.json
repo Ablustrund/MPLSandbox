@@ -1,0 +1,1119 @@
+[
+    {
+        "prompt": "\ndef IgUhb():\n    \"\"\"There are n student groups at the university. During the study day, each group can take no more than 7 classes. Seven time slots numbered from 1 to 7 are allocated for the classes.\n\nThe schedule on Monday is known for each group, i. e. time slots when group will have classes are known.\n\nYour task is to determine the minimum number of rooms needed to hold classes for all groups on Monday. Note that one room can hold at most one group class in a single time slot.\n\n\n-----Input-----\n\nThe first line contains a single integer n (1 ≤ n ≤ 1000) — the number of groups. \n\nEach of the following n lines contains a sequence consisting of 7 zeroes and ones — the schedule of classes on Monday for a group. If the symbol in a position equals to 1 then the group has class in the corresponding time slot. In the other case, the group has no class in the corresponding time slot.\n\n\n-----Output-----\n\nPrint minimum number of rooms needed to hold all groups classes on Monday.\n\n\n-----Examples-----\nInput\n2\n0101010\n1010101\n\nOutput\n1\n\nInput\n3\n0101011\n0011001\n0110111\n\nOutput\n3\n\n\n\n-----Note-----\n\nIn the first example one room is enough. It will be occupied in each of the seven time slot by the first group or by the second group.\n\nIn the second example three rooms is enough, because in the seventh time slot all three groups have classes.\n    \"\"\"\n",
+        "canonical_solution": "\ndef IgUhb():\n    strings = int(input())\n    \n    count = [0 for x in range(7)]\n    \n    for k in range(strings):\n        s = input()\n        for index in range(7):\n            if s[index] == '1':\n                count[index] += 1\n    \n    print(max(count))\n    ",
+        "inputs": [
+            "2\n0101010\n1010101\n",
+            "3\n0101011\n0011001\n0110111\n",
+            "1\n0111000\n"
+        ],
+        "outputs": [
+            "1\n",
+            "3\n",
+            "1\n"
+        ],
+        "starter_code": "\ndef IgUhb():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                13
+            ],
+            [
+                "List Comprehension",
+                5,
+                5
+            ],
+            [
+                "For Loop Body",
+                7,
+                11
+            ],
+            [
+                "For Loop Body",
+                9,
+                11
+            ],
+            [
+                "If Statement Body",
+                10,
+                11
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 0
+    },
+    {
+        "prompt": "\ndef XKxTL():\n    \"\"\"Today Pari and Arya are playing a game called Remainders.\n\nPari chooses two positive integer x and k, and tells Arya k but not x. Arya have to find the value $x \\text{mod} k$. There are n ancient numbers c_1, c_2, ..., c_{n} and Pari has to tell Arya $x \\operatorname{mod} c_{i}$ if Arya wants. Given k and the ancient values, tell us if Arya has a winning strategy independent of value of x or not. Formally, is it true that Arya can understand the value $x \\text{mod} k$ for any positive integer x?\n\nNote, that $x \\text{mod} y$ means the remainder of x after dividing it by y.\n\n\n-----Input-----\n\nThe first line of the input contains two integers n and k (1 ≤ n,  k ≤ 1 000 000) — the number of ancient integers and value k that is chosen by Pari.\n\nThe second line contains n integers c_1, c_2, ..., c_{n} (1 ≤ c_{i} ≤ 1 000 000).\n\n\n-----Output-----\n\nPrint \"Yes\" (without quotes) if Arya has a winning strategy independent of value of x, or \"No\" (without quotes) otherwise.\n\n\n-----Examples-----\nInput\n4 5\n2 3 5 12\n\nOutput\nYes\n\nInput\n2 7\n2 3\n\nOutput\nNo\n\n\n\n-----Note-----\n\nIn the first sample, Arya can understand $x \\operatorname{mod} 5$ because 5 is one of the ancient numbers.\n\nIn the second sample, Arya can't be sure what $x \\text{mod} 7$ is. For example 1 and 7 have the same remainders after dividing by 2 and 3, but they differ in remainders after dividing by 7.\n    \"\"\"\n",
+        "canonical_solution": "from math import *\nfrom sys import *\ndef XKxTL():\n    n, k = map(int, stdin.readline().split(\" \"))\n    a = 1;\n    for c in map(int, stdin.readline().split(\" \")):\n      a = a * (gcd(k, c)//gcd(a, c))\n    if a%k == 0:\n      print(\"Yes\")\n    else:\n      print(\"No\")",
+        "inputs": [
+            "4 5\n2 3 5 12\n",
+            "2 7\n2 3\n",
+            "1 6\n8\n"
+        ],
+        "outputs": [
+            "Yes\n",
+            "No\n",
+            "No\n"
+        ],
+        "starter_code": "\ndef XKxTL():\n",
+        "scope": [
+            [
+                "Function Body",
+                3,
+                11
+            ],
+            [
+                "For Loop Body",
+                6,
+                7
+            ],
+            [
+                "If Statement Body",
+                8,
+                11
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 1
+    },
+    {
+        "prompt": "\ndef WUbvY():\n    \"\"\"Recently, Dima met with Sasha in a philatelic store, and since then they are collecting coins together. Their favorite occupation is to sort collections of coins. Sasha likes having things in order, that is why he wants his coins to be arranged in a row in such a way that firstly come coins out of circulation, and then come coins still in circulation. \n\nFor arranging coins Dima uses the following algorithm. One step of his algorithm looks like the following:\n\n  He looks through all the coins from left to right;  If he sees that the i-th coin is still in circulation, and (i + 1)-th coin is already out of circulation, he exchanges these two coins and continues watching coins from (i + 1)-th.  \n\nDima repeats the procedure above until it happens that no two coins were exchanged during this procedure. Dima calls hardness of ordering the number of steps required for him according to the algorithm above to sort the sequence, e.g. the number of times he looks through the coins from the very beginning. For example, for the ordered sequence hardness of ordering equals one.\n\nToday Sasha invited Dima and proposed him a game. First he puts n coins in a row, all of them are out of circulation. Then Sasha chooses one of the coins out of circulation and replaces it with a coin in circulation for n times. During this process Sasha constantly asks Dima what is the hardness of ordering of the sequence. \n\nThe task is more complicated because Dima should not touch the coins and he should determine hardness of ordering in his mind. Help Dima with this task. \n\n\n-----Input-----\n\nThe first line contains single integer n (1 ≤ n ≤ 300 000) — number of coins that Sasha puts behind Dima.\n\nSecond line contains n distinct integers p_1, p_2, ..., p_{n} (1 ≤ p_{i} ≤ n) — positions that Sasha puts coins in circulation to. At first Sasha replaces coin located at position p_1, then coin located at position p_2 and so on. Coins are numbered from left to right.\n\n\n-----Output-----\n\nPrint n + 1 numbers a_0, a_1, ..., a_{n}, where a_0 is a hardness of ordering at the beginning, a_1 is a hardness of ordering after the first replacement and so on. \n\n\n-----Examples-----\nInput\n4\n1 3 4 2\n\nOutput\n1 2 3 2 1\n\nInput\n8\n6 8 3 4 7 2 1 5\n\nOutput\n1 2 2 3 4 3 4 5 1\n\n\n\n-----Note-----\n\nLet's denote as O coin out of circulation, and as X — coin is circulation.\n\nAt the first sample, initially in row there are coins that are not in circulation, so Dima will look through them from left to right and won't make any exchanges.\n\nAfter replacement of the first coin with a coin in circulation, Dima will exchange this coin with next three times and after that he will finally look through the coins and finish the process.\n\nXOOO  →  OOOX\n\nAfter replacement of the third coin, Dima's actions look this way:\n\nXOXO  →  OXOX  →  OOXX\n\nAfter replacement of the fourth coin, Dima's actions look this way:\n\nXOXX  →  OXXX\n\nFinally, after replacement of the second coin, row becomes consisting of coins that are in circulation and Dima will look through coins from left to right without any exchanges.\n    \"\"\"\n",
+        "canonical_solution": "\ndef WUbvY():\n    n = int(input())\n    a = list(map(int, input().split()))\n    p = [0] * (n + 1)\n    ans = [1] * (n + 1)\n    ind = n\n    for i in range(n):\n        p[a[i] - 1] = 1\n        while ind > 0 and p[ind - 1] == 1:\n            ind -= 1\n        ans[i + 1] = 1 + (i + 1) - (n - ind)\n    print(' '.join(map(str, ans)))",
+        "inputs": [
+            "4\n1 3 4 2\n",
+            "8\n6 8 3 4 7 2 1 5\n",
+            "1\n1\n"
+        ],
+        "outputs": [
+            "1 2 3 2 1\n",
+            "1 2 2 3 4 3 4 5 1\n",
+            "1 1\n"
+        ],
+        "starter_code": "\ndef WUbvY():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                13
+            ],
+            [
+                "For Loop Body",
+                8,
+                12
+            ],
+            [
+                "While Loop Body",
+                10,
+                11
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 2
+    },
+    {
+        "prompt": "\ndef aRWJo():\n    \"\"\"There are many anime that are about \"love triangles\": Alice loves Bob, and Charlie loves Bob as well, but Alice hates Charlie. You are thinking about an anime which has n characters. The characters are labeled from 1 to n. Every pair of two characters can either mutually love each other or mutually hate each other (there is no neutral state).\n\nYou hate love triangles (A-B are in love and B-C are in love, but A-C hate each other), and you also hate it when nobody is in love. So, considering any three characters, you will be happy if exactly one pair is in love (A and B love each other, and C hates both A and B), or if all three pairs are in love (A loves B, B loves C, C loves A).\n\nYou are given a list of m known relationships in the anime. You know for sure that certain pairs love each other, and certain pairs hate each other. You're wondering how many ways you can fill in the remaining relationships so you are happy with every triangle. Two ways are considered different if two characters are in love in one way but hate each other in the other. Print this count modulo 1 000 000 007.\n\n\n-----Input-----\n\nThe first line of input will contain two integers n, m (3 ≤ n ≤ 100 000, 0 ≤ m ≤ 100 000).\n\nThe next m lines will contain the description of the known relationships. The i-th line will contain three integers a_{i}, b_{i}, c_{i}. If c_{i} is 1, then a_{i} and b_{i} are in love, otherwise, they hate each other (1 ≤ a_{i}, b_{i} ≤ n, a_{i} ≠ b_{i}, $c_{i} \\in \\{0,1 \\}$).\n\nEach pair of people will be described no more than once.\n\n\n-----Output-----\n\nPrint a single integer equal to the number of ways to fill in the remaining pairs so that you are happy with every triangle modulo 1 000 000 007. \n\n\n-----Examples-----\nInput\n3 0\n\nOutput\n4\n\nInput\n4 4\n1 2 1\n2 3 1\n3 4 0\n4 1 0\n\nOutput\n1\n\nInput\n4 4\n1 2 1\n2 3 1\n3 4 0\n4 1 1\n\nOutput\n0\n\n\n\n-----Note-----\n\nIn the first sample, the four ways are to:   Make everyone love each other  Make 1 and 2 love each other, and 3 hate 1 and 2 (symmetrically, we get 3 ways from this). \n\nIn the second sample, the only possible solution is to make 1 and 3 love each other and 2 and 4 hate each other.\n    \"\"\"\n",
+        "canonical_solution": "\ndef aRWJo():\n    class DisjointSet(object):\n        def __init__(self, n):\n            self.parent = list(range(n))\n            self.rank = [0] * n\n            self.num = n  # number of disjoint sets\n    \n        def union(self, x, y):\n            self._link(self.find_set(x), self.find_set(y))\n    \n        def _link(self, x, y):\n            if x == y:\n                return\n            self.num -= 1\n            if self.rank[x] > self.rank[y]:\n                self.parent[y] = x\n            else:\n                self.parent[x] = y\n                if self.rank[x] == self.rank[y]:\n                    self.rank[y] += 1\n    \n        def find_set(self, x):\n            xp = self.parent[x]\n            if xp != x:\n                self.parent[x] = self.find_set(xp)\n            return self.parent[x]\n    \n    \n    def solve():\n        n, m = list(map(int, input().split()))\n        ds = DisjointSet(n * 2)\n        for i in range(m):\n            a, b, c = list(map(int, input().split()))\n            a -= 1\n            b -= 1\n            aA = a * 2\n            aB = aA + 1\n            bA = b * 2\n            bB = bA + 1\n            if c == 0:\n                if ds.find_set(aA) == ds.find_set(bA):\n                    return 0\n                ds.union(aA, bB)\n                ds.union(aB, bA)\n            else:\n                if ds.find_set(aA) == ds.find_set(bB):\n                    return 0\n                ds.union(aA, bA)\n                ds.union(aB, bB)\n        return pow(2, (ds.num // 2) - 1, 10**9 + 7)\n    \n    \n    print(solve())\n    ",
+        "inputs": [
+            "3 0\n",
+            "4 4\n1 2 1\n2 3 1\n3 4 0\n4 1 0\n",
+            "4 4\n1 2 1\n2 3 1\n3 4 0\n4 1 1\n"
+        ],
+        "outputs": [
+            "4\n",
+            "1\n",
+            "0\n"
+        ],
+        "starter_code": "\ndef aRWJo():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                54
+            ],
+            [
+                "Class Body",
+                3,
+                27
+            ],
+            [
+                "Function Body",
+                4,
+                7
+            ],
+            [
+                "Function Body",
+                9,
+                10
+            ],
+            [
+                "Function Body",
+                12,
+                21
+            ],
+            [
+                "If Statement Body",
+                13,
+                14
+            ],
+            [
+                "If Statement Body",
+                16,
+                21
+            ],
+            [
+                "If Statement Body",
+                20,
+                21
+            ],
+            [
+                "Function Body",
+                23,
+                27
+            ],
+            [
+                "If Statement Body",
+                25,
+                26
+            ],
+            [
+                "Function Body",
+                30,
+                51
+            ],
+            [
+                "For Loop Body",
+                33,
+                50
+            ],
+            [
+                "If Statement Body",
+                41,
+                50
+            ],
+            [
+                "If Statement Body",
+                42,
+                43
+            ],
+            [
+                "If Statement Body",
+                47,
+                48
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 3
+    },
+    {
+        "prompt": "\ndef aOSQR():\n    \"\"\"One common way of digitalizing sound is to record sound intensity at particular time moments. For each time moment intensity is recorded as a non-negative integer. Thus we can represent a sound file as an array of $n$ non-negative integers.\n\nIf there are exactly $K$ distinct values in the array, then we need $k = \\lceil \\log_{2} K \\rceil$ bits to store each value. It then takes $nk$ bits to store the whole file.\n\nTo reduce the memory consumption we need to apply some compression. One common way is to reduce the number of possible intensity values. We choose two integers $l \\le r$, and after that all intensity values are changed in the following way: if the intensity value is within the range $[l;r]$, we don't change it. If it is less than $l$, we change it to $l$; if it is greater than $r$, we change it to $r$. You can see that we lose some low and some high intensities.\n\nYour task is to apply this compression in such a way that the file fits onto a disk of size $I$ bytes, and the number of changed elements in the array is minimal possible.\n\nWe remind you that $1$ byte contains $8$ bits.\n\n$k = \\lceil log_{2} K \\rceil$ is the smallest integer such that $K \\le 2^{k}$. In particular, if $K = 1$, then $k = 0$.\n\n\n-----Input-----\n\nThe first line contains two integers $n$ and $I$ ($1 \\le n \\le 4 \\cdot 10^{5}$, $1 \\le I \\le 10^{8}$) — the length of the array and the size of the disk in bytes, respectively.\n\nThe next line contains $n$ integers $a_{i}$ ($0 \\le a_{i} \\le 10^{9}$) — the array denoting the sound file.\n\n\n-----Output-----\n\nPrint a single integer — the minimal possible number of changed elements.\n\n\n-----Examples-----\nInput\n6 1\n2 1 2 3 4 3\n\nOutput\n2\n\nInput\n6 2\n2 1 2 3 4 3\n\nOutput\n0\n\nInput\n6 1\n1 1 2 2 3 3\n\nOutput\n2\n\n\n\n-----Note-----\n\nIn the first example we can choose $l=2, r=3$. The array becomes 2 2 2 3 3 3, the number of distinct elements is $K=2$, and the sound file fits onto the disk. Only two values are changed.\n\nIn the second example the disk is larger, so the initial file fits it and no changes are required.\n\nIn the third example we have to change both 1s or both 3s.\n    \"\"\"\n",
+        "canonical_solution": "\ndef aOSQR():\n    N, I = list(map(int, input().split()))\n    A = sorted([int(a) for a in input().split()])\n    B = []\n    j = 0\n    for i in range(N):\n        if i == 0 or A[i] == A[i-1]:\n            B.append(j)\n        else:\n            j += 1\n            B.append(j)\n    \n    def calc(k):\n        K = 1<<k\n        i = 0\n        j = 0\n        ma = 0\n        while j < N:\n            if B[j]-B[i] <= K - 1:\n                ma = max(ma, j-i+1)\n                j += 1\n            else:\n                i += 1\n        return N-ma\n    \n    ans = 10**100\n    for i in range(31):\n        if i * N <= 8 * I:\n            ans = min(ans, calc(i))\n    \n    print(ans)\n    \n    \n    ",
+        "inputs": [
+            "6 1\n2 1 2 3 4 3\n",
+            "6 2\n2 1 2 3 4 3\n",
+            "6 1\n1 1 2 2 3 3\n"
+        ],
+        "outputs": [
+            "2\n",
+            "0\n",
+            "2\n"
+        ],
+        "starter_code": "\ndef aOSQR():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                32
+            ],
+            [
+                "List Comprehension",
+                4,
+                4
+            ],
+            [
+                "For Loop Body",
+                7,
+                12
+            ],
+            [
+                "If Statement Body",
+                8,
+                12
+            ],
+            [
+                "Function Body",
+                14,
+                25
+            ],
+            [
+                "While Loop Body",
+                19,
+                24
+            ],
+            [
+                "If Statement Body",
+                20,
+                24
+            ],
+            [
+                "For Loop Body",
+                28,
+                30
+            ],
+            [
+                "If Statement Body",
+                29,
+                30
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 4
+    },
+    {
+        "prompt": "\ndef CnMlu():\n    \"\"\"Bob recently read about bitwise operations used in computers: AND, OR and XOR. He have studied their properties and invented a new game.\n\nInitially, Bob chooses integer m, bit depth of the game, which means that all numbers in the game will consist of m bits. Then he asks Peter to choose some m-bit number. After that, Bob computes the values of n variables. Each variable is assigned either a constant m-bit number or result of bitwise operation. Operands of the operation may be either variables defined before, or the number, chosen by Peter. After that, Peter's score equals to the sum of all variable values.\n\nBob wants to know, what number Peter needs to choose to get the minimum possible score, and what number he needs to choose to get the maximum possible score. In both cases, if there are several ways to get the same score, find the minimum number, which he can choose.\n\n\n-----Input-----\n\nThe first line contains two integers n and m, the number of variables and bit depth, respectively (1 ≤ n ≤ 5000; 1 ≤ m ≤ 1000). \n\nThe following n lines contain descriptions of the variables. Each line describes exactly one variable. Description has the following format: name of a new variable, space, sign \":=\", space, followed by one of:  Binary number of exactly m bits.  The first operand, space, bitwise operation (\"AND\", \"OR\" or \"XOR\"), space, the second operand. Each operand is either the name of variable defined before or symbol '?', indicating the number chosen by Peter.  \n\nVariable names are strings consisting of lowercase Latin letters with length at most 10. All variable names are different.\n\n\n-----Output-----\n\nIn the first line output the minimum number that should be chosen by Peter, to make the sum of all variable values minimum possible, in the second line output the minimum number that should be chosen by Peter, to make the sum of all variable values maximum possible. Both numbers should be printed as m-bit binary numbers.\n\n\n-----Examples-----\nInput\n3 3\na := 101\nb := 011\nc := ? XOR b\n\nOutput\n011\n100\n\nInput\n5 1\na := 1\nbb := 0\ncx := ? OR a\nd := ? XOR ?\ne := d AND bb\n\nOutput\n0\n0\n\n\n\n-----Note-----\n\nIn the first sample if Peter chooses a number 011_2, then a = 101_2, b = 011_2, c = 000_2, the sum of their values is 8. If he chooses the number 100_2, then a = 101_2, b = 011_2, c = 111_2, the sum of their values is 15.\n\nFor the second test, the minimum and maximum sum of variables a, bb, cx, d and e is 2, and this sum doesn't depend on the number chosen by Peter, so the minimum Peter can choose is 0.\n    \"\"\"\n",
+        "canonical_solution": "import sys\ndef CnMlu():\n    def calc(b0, b1, q):\n        if q == 0:\n            return b0 ^ b1\n        if q == 1:\n            return b0 | b1\n        if q == 2:\n            return b0 & b1\n    n, m = list(map(int,sys.stdin.readline().split()))\n    arr1 = {}\n    opt = ['XOR', 'OR', 'AND']\n    arr2 = []\n    for j in range(n):\n        a, b = list(map(str,sys.stdin.readline().split(\" := \")))\n        b = b.split()\n        if len(b) == 1:\n            s = b[0]\n            arr1[a] = s\n        else:\n            c = b[0]\n            d = b[2]\n            q = opt.index(b[1])\n            arr2.append((a, c, d, q))\n     \n    mins = ''\n    maxs = ''\n    d0 = {'?':0}\n    d1 = {'?':1}\n    for i in range(m):\n        for a, b in list(arr1.items()):\n            d0[a] = int(b[i])\n            d1[a] = int(b[i])\n        s0 = 0\n        s1 = 0\n        for a, c, d, q in arr2:\n            b00 = d0[c]\n            b01 = d0[d]\n            b10 = d1[c]\n            b11 = d1[d]\n            c0 = calc(b00, b01, q)\n            c1 = calc(b10, b11, q)\n            s0 += (1 if c0 else 0)\n            s1 += (1 if c1 else 0)\n            d0[a] = c0\n            d1[a] = c1\n        if s1 < s0:\n            mins += \"1\"\n        else:\n            mins += \"0\"\n        if s1 > s0:\n            maxs += \"1\"\n        else:\n            maxs += \"0\"\n    sys.stdout.write(\"{0}\\n{1}\".format(mins,maxs))\n        ",
+        "inputs": [
+            "3 3\na := 101\nb := 011\nc := ? XOR b\n",
+            "5 1\na := 1\nbb := 0\ncx := ? OR a\nd := ? XOR ?\ne := d AND bb\n",
+            "2 10\nb := 0100101101\na := ? XOR b\n"
+        ],
+        "outputs": [
+            "011\n100\n",
+            "0\n0\n",
+            "0100101101\n1011010010\n"
+        ],
+        "starter_code": "\ndef CnMlu():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                55
+            ],
+            [
+                "Function Body",
+                3,
+                9
+            ],
+            [
+                "If Statement Body",
+                4,
+                5
+            ],
+            [
+                "If Statement Body",
+                6,
+                7
+            ],
+            [
+                "If Statement Body",
+                8,
+                9
+            ],
+            [
+                "For Loop Body",
+                14,
+                24
+            ],
+            [
+                "If Statement Body",
+                17,
+                24
+            ],
+            [
+                "For Loop Body",
+                30,
+                54
+            ],
+            [
+                "For Loop Body",
+                31,
+                33
+            ],
+            [
+                "For Loop Body",
+                36,
+                46
+            ],
+            [
+                "If Statement Body",
+                47,
+                50
+            ],
+            [
+                "If Statement Body",
+                51,
+                54
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 5
+    },
+    {
+        "prompt": "\ndef MpKNJ():\n    \"\"\"You are given an integer sequence A of length N and an integer K.\nYou will perform the following operation on this sequence Q times:\n - Choose a contiguous subsequence of length K, then remove the smallest element among the K elements contained in the chosen subsequence (if there are multiple such elements, choose one of them as you like).\nLet X and Y be the values of the largest and smallest element removed in the Q operations. You would like X-Y to be as small as possible.\nFind the smallest possible value of X-Y when the Q operations are performed optimally.\n\n-----Constraints-----\n - 1 \\leq N \\leq 2000\n - 1 \\leq K \\leq N\n - 1 \\leq Q \\leq N-K+1\n - 1 \\leq A_i \\leq 10^9\n - All values in input are integers.\n\n-----Input-----\nInput is given from Standard Input in the following format:\nN K Q\nA_1 A_2 ... A_N\n\n-----Output-----\nPrint the smallest possible value of X-Y.\n\n-----Sample Input-----\n5 3 2\n4 3 1 5 2\n\n-----Sample Output-----\n1\n\nIn the first operation, whichever contiguous subsequence of length 3 we choose, the minimum element in it is 1.\nThus, the first operation removes A_3=1 and now we have A=(4,3,5,2).\nIn the second operation, it is optimal to choose (A_2,A_3,A_4)=(3,5,2) as the contiguous subsequence of length 3 and remove A_4=2.\nIn this case, the largest element removed is 2, and the smallest is 1, so their difference is 2-1=1.\n    \"\"\"\n",
+        "canonical_solution": "from collections import defaultdict,deque\nfrom heapq import heappush, heappop\nimport sys\nimport math\nimport bisect\nimport random\ndef MpKNJ():\n    #!usr/bin/env python3\n    def LI(): return [int(x) for x in sys.stdin.readline().split()]\n    def I(): return int(sys.stdin.readline())\n    def LS():return [list(x) for x in sys.stdin.readline().split()]\n    def S():\n        res = list(sys.stdin.readline())\n        if res[-1] == \"\\n\":\n            return res[:-1]\n        return res\n    def IR(n):\n        return [I() for i in range(n)]\n    def LIR(n):\n        return [LI() for i in range(n)]\n    def SR(n):\n        return [S() for i in range(n)]\n    def LSR(n):\n        return [LS() for i in range(n)]\n    sys.setrecursionlimit(1000000)\n    mod = 1000000007\n    def solve():\n        n,k,q = LI()\n        a = LI()\n        b = [[a[i],i] for i in range(n)]\n        b.sort()\n        ans = b[q-1][0]-b[0][0]\n        l = [-1,n]\n        for i in range(1,n):\n            l.append(b[i-1][1])\n            l.sort()\n            if b[i-1][0] == b[i][0]:\n                continue\n            s = [a[l[i]+1:l[i+1]] for i in range(i+1)]\n            c = []\n            for si in s:\n                si.sort()\n                for j in range(len(si)-k+1):\n                    c.append(si[j])\n            if len(c) < q:\n                continue\n            c.sort()\n            m = c[q-1]-c[0]\n            if m < ans:\n                ans = m\n        print(ans)\n        return\n    #Solve\n    def __starting_point():\n        solve()\n    __starting_point()",
+        "inputs": [
+            "5 3 2\n4 3 1 5 2\n",
+            "10 1 6\n1 1 2 3 5 8 13 21 34 55\n",
+            "11 7 5\n24979445 861648772 623690081 433933447 476190629 262703497 211047202 971407775 628894325 731963982 822804784\n"
+        ],
+        "outputs": [
+            "1\n",
+            "7\n",
+            "451211184\n"
+        ],
+        "starter_code": "\ndef MpKNJ():\n",
+        "scope": [
+            [
+                "Function Body",
+                7,
+                56
+            ],
+            [
+                "Function Body",
+                9,
+                9
+            ],
+            [
+                "List Comprehension",
+                9,
+                9
+            ],
+            [
+                "Function Body",
+                10,
+                10
+            ],
+            [
+                "Function Body",
+                11,
+                11
+            ],
+            [
+                "List Comprehension",
+                11,
+                11
+            ],
+            [
+                "Function Body",
+                12,
+                16
+            ],
+            [
+                "If Statement Body",
+                14,
+                15
+            ],
+            [
+                "Function Body",
+                17,
+                18
+            ],
+            [
+                "List Comprehension",
+                18,
+                18
+            ],
+            [
+                "Function Body",
+                19,
+                20
+            ],
+            [
+                "List Comprehension",
+                20,
+                20
+            ],
+            [
+                "Function Body",
+                21,
+                22
+            ],
+            [
+                "List Comprehension",
+                22,
+                22
+            ],
+            [
+                "Function Body",
+                23,
+                24
+            ],
+            [
+                "List Comprehension",
+                24,
+                24
+            ],
+            [
+                "Function Body",
+                27,
+                52
+            ],
+            [
+                "List Comprehension",
+                30,
+                30
+            ],
+            [
+                "For Loop Body",
+                34,
+                50
+            ],
+            [
+                "If Statement Body",
+                37,
+                38
+            ],
+            [
+                "List Comprehension",
+                39,
+                39
+            ],
+            [
+                "For Loop Body",
+                41,
+                44
+            ],
+            [
+                "For Loop Body",
+                43,
+                44
+            ],
+            [
+                "If Statement Body",
+                45,
+                46
+            ],
+            [
+                "If Statement Body",
+                49,
+                50
+            ],
+            [
+                "Function Body",
+                54,
+                55
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 6
+    },
+    {
+        "prompt": "\ndef FYnjM():\n    \"\"\"Snuke is buying a lamp.\nThe light of the lamp can be adjusted to m levels of brightness, represented by integers from 1 through m, by the two buttons on the remote control.\nThe first button is a \"forward\" button. When this button is pressed, the brightness level is increased by 1, except when the brightness level is m, in which case the brightness level becomes 1.\nThe second button is a \"favorite\" button. When this button is pressed, the brightness level becomes the favorite brightness level x, which is set when the lamp is purchased.\nSnuke is thinking of setting the favorite brightness level x so that he can efficiently adjust the brightness.\nHe is planning to change the brightness n-1 times. In the i-th change, the brightness level is changed from a_i to a_{i+1}. The initial brightness level is a_1.\nFind the number of times Snuke needs to press the buttons when x is set to minimize this number.\n\n-----Constraints-----\n - 2 \\leq n,m \\leq 10^5\n - 1 \\leq a_i\\leq m\n - a_i \\neq a_{i+1}\n - n, m and a_i are integers.\n\n-----Input-----\nInput is given from Standard Input in the following format:\nn m\na_1 a_2 … a_n\n\n-----Output-----\nPrint the minimum number of times Snuke needs to press the buttons.\n\n-----Sample Input-----\n4 6\n1 5 1 4\n\n-----Sample Output-----\n5\n\nWhen the favorite brightness level is set to 1, 2, 3, 4, 5 and 6, Snuke needs to press the buttons 8, 9, 7, 5, 6 and 9 times, respectively.\nThus, Snuke should set the favorite brightness level to 4.\nIn this case, the brightness is adjusted as follows:\n - In the first change, press the favorite button once, then press the forward button once.\n - In the second change, press the forward button twice.\n - In the third change, press the favorite button once.\n    \"\"\"\n",
+        "canonical_solution": "\ndef FYnjM():\n    n,m=map(int,input().split())\n    A=[int(i)-1 for i in input().split()]\n    ds=[0]*m\n    de=[[] for i in range(m)]\n    h,dec=0,0\n    for i in range(n-1):\n      if A[i+1]-A[i]>0:\n        h+=A[i+1]-A[i]\n      else:\n        h+=A[i+1]+1\n        dec+=1\n      de[A[i+1]].append((i,(A[i+1]-A[i])%m))\n    for i in range(m):\n      for a in de[i]:\n        ds[(i-a[1]+1)%m]+=1\n    ans=float(\"inf\")\n    for i in range(m):\n      for a in de[i]:\n        h+=a[1]-1\n        dec-=1\n      h-=dec\n      ans=min(h,ans)\n      if i<=m-2:\n        dec+=ds[i+1]\n      \n    print(ans)",
+        "inputs": [
+            "4 6\n1 5 1 4\n",
+            "10 10\n10 9 8 7 6 5 4 3 2 1\n",
+            "35 2\n1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1\n"
+        ],
+        "outputs": [
+            "5\n",
+            "45\n",
+            "34\n"
+        ],
+        "starter_code": "\ndef FYnjM():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                28
+            ],
+            [
+                "List Comprehension",
+                4,
+                4
+            ],
+            [
+                "List Comprehension",
+                6,
+                6
+            ],
+            [
+                "For Loop Body",
+                8,
+                14
+            ],
+            [
+                "If Statement Body",
+                9,
+                13
+            ],
+            [
+                "For Loop Body",
+                15,
+                17
+            ],
+            [
+                "For Loop Body",
+                16,
+                17
+            ],
+            [
+                "For Loop Body",
+                19,
+                26
+            ],
+            [
+                "For Loop Body",
+                20,
+                22
+            ],
+            [
+                "If Statement Body",
+                25,
+                26
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 7
+    },
+    {
+        "prompt": "\ndef WUotq():\n    \"\"\"You invited $n$ guests to dinner! You plan to arrange one or more circles of chairs. Each chair is going to be either occupied by one guest, or be empty. You can make any number of circles. \n\nYour guests happen to be a little bit shy, so the $i$-th guest wants to have a least $l_i$ free chairs to the left of his chair, and at least $r_i$ free chairs to the right. The \"left\" and \"right\" directions are chosen assuming all guests are going to be seated towards the center of the circle. Note that when a guest is the only one in his circle, the $l_i$ chairs to his left and $r_i$ chairs to his right may overlap.\n\nWhat is smallest total number of chairs you have to use?\n\n\n-----Input-----\n\nFirst line contains one integer $n$  — number of guests, ($1 \\leqslant n \\leqslant 10^5$). \n\nNext $n$ lines contain $n$ pairs of space-separated integers $l_i$ and $r_i$ ($0 \\leqslant l_i, r_i \\leqslant 10^9$).\n\n\n-----Output-----\n\nOutput a single integer — the smallest number of chairs you have to use.\n\n\n-----Examples-----\nInput\n3\n1 1\n1 1\n1 1\n\nOutput\n6\n\nInput\n4\n1 2\n2 1\n3 5\n5 3\n\nOutput\n15\n\nInput\n1\n5 6\n\nOutput\n7\n\n\n\n-----Note-----\n\nIn the second sample the only optimal answer is to use two circles: a circle with $5$ chairs accomodating guests $1$ and $2$, and another one with $10$ chairs accomodationg guests $3$ and $4$.\n\nIn the third sample, you have only one circle with one person. The guest should have at least five free chairs to his left, and at least six free chairs to his right to the next person, which is in this case the guest herself. So, overall number of chairs should be at least 6+1=7.\n    \"\"\"\n",
+        "canonical_solution": "import sys\ndef WUotq():\n    input = sys.stdin.readline\n    n=int(input())\n    lr=[list(map(int,input().split())) for i in range(n)]\n    L=[lr[i][0] for i in range(n)]\n    R=[lr[i][1] for i in range(n)]\n    L.sort()\n    R.sort()\n    ANS=0\n    for i in range(n):\n        ANS+=max(L[i],R[i])\n    print(ANS+n)",
+        "inputs": [
+            "3\n1 1\n1 1\n1 1\n",
+            "4\n1 2\n2 1\n3 5\n5 3\n",
+            "1\n5 6\n"
+        ],
+        "outputs": [
+            "6\n",
+            "15\n",
+            "7\n"
+        ],
+        "starter_code": "\ndef WUotq():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                13
+            ],
+            [
+                "List Comprehension",
+                5,
+                5
+            ],
+            [
+                "List Comprehension",
+                6,
+                6
+            ],
+            [
+                "List Comprehension",
+                7,
+                7
+            ],
+            [
+                "For Loop Body",
+                11,
+                12
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 8
+    },
+    {
+        "prompt": "\ndef uZhtH():\n    \"\"\"Appleman has a tree with n vertices. Some of the vertices (at least one) are colored black and other vertices are colored white.\n\nConsider a set consisting of k (0 ≤ k < n) edges of Appleman's tree. If Appleman deletes these edges from the tree, then it will split into (k + 1) parts. Note, that each part will be a tree with colored vertices.\n\nNow Appleman wonders, what is the number of sets splitting the tree in such a way that each resulting part will have exactly one black vertex? Find this number modulo 1000000007 (10^9 + 7).\n\n\n-----Input-----\n\nThe first line contains an integer n (2  ≤ n ≤ 10^5) — the number of tree vertices. \n\nThe second line contains the description of the tree: n - 1 integers p_0, p_1, ..., p_{n} - 2 (0 ≤ p_{i} ≤ i). Where p_{i} means that there is an edge connecting vertex (i + 1) of the tree and vertex p_{i}. Consider tree vertices are numbered from 0 to n - 1.\n\nThe third line contains the description of the colors of the vertices: n integers x_0, x_1, ..., x_{n} - 1 (x_{i} is either 0 or 1). If x_{i} is equal to 1, vertex i is colored black. Otherwise, vertex i is colored white.\n\n\n-----Output-----\n\nOutput a single integer — the number of ways to split the tree modulo 1000000007 (10^9 + 7).\n\n\n-----Examples-----\nInput\n3\n0 0\n0 1 1\n\nOutput\n2\n\nInput\n6\n0 1 1 0 4\n1 1 0 0 1 0\n\nOutput\n1\n\nInput\n10\n0 1 2 1 4 4 4 0 8\n0 0 0 1 0 1 1 0 0 1\n\nOutput\n27\n    \"\"\"\n",
+        "canonical_solution": "\ndef uZhtH():\n    MOD = 1000000007\n    \n    n = int(input())\n    p = [int(x) for x in input().split()]\n    x = [int(x) for x in input().split()]\n    \n    children = [[] for x in range(n)]\n    \n    for i in range(1,n):\n        children[p[i-1]].append(i)\n    \n    #print(children)\n    \n    count = [(0,0) for i in range(n)]\n    for i in reversed(list(range(n))):\n        prod = 1\n        for ch in children[i]:\n            prod *= count[ch][0]+count[ch][1]\n        if x[i]:\n            count[i] = (0,prod % MOD)\n        else:\n            tot = 0\n            for ch in children[i]:\n                cur = count[ch][1]*prod // (count[ch][0]+count[ch][1])\n                tot += cur\n            count[i] = (prod % MOD, tot % MOD)\n    \n    print(count[0][1])\n    ",
+        "inputs": [
+            "3\n0 0\n0 1 1\n",
+            "6\n0 1 1 0 4\n1 1 0 0 1 0\n",
+            "10\n0 1 2 1 4 4 4 0 8\n0 0 0 1 0 1 1 0 0 1\n"
+        ],
+        "outputs": [
+            "2\n",
+            "1\n",
+            "27\n"
+        ],
+        "starter_code": "\ndef uZhtH():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                30
+            ],
+            [
+                "List Comprehension",
+                6,
+                6
+            ],
+            [
+                "List Comprehension",
+                7,
+                7
+            ],
+            [
+                "List Comprehension",
+                9,
+                9
+            ],
+            [
+                "For Loop Body",
+                11,
+                12
+            ],
+            [
+                "List Comprehension",
+                16,
+                16
+            ],
+            [
+                "For Loop Body",
+                17,
+                28
+            ],
+            [
+                "For Loop Body",
+                19,
+                20
+            ],
+            [
+                "If Statement Body",
+                21,
+                28
+            ],
+            [
+                "For Loop Body",
+                25,
+                27
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 9
+    },
+    {
+        "prompt": "\ndef cWmVr():\n    \"\"\"Consider a tree $T$ (that is, a connected graph without cycles) with $n$ vertices labelled $1$ through $n$. We start the following process with $T$: while $T$ has more than one vertex, do the following:\n\n\n\n choose a random edge of $T$ equiprobably;\n\n shrink the chosen edge: if the edge was connecting vertices $v$ and $u$, erase both $v$ and $u$ and create a new vertex adjacent to all vertices previously adjacent to either $v$ or $u$. The new vertex is labelled either $v$ or $u$ equiprobably.\n\nAt the end of the process, $T$ consists of a single vertex labelled with one of the numbers $1, \\ldots, n$. For each of the numbers, what is the probability of this number becoming the label of the final vertex?\n\n\n-----Input-----\n\nThe first line contains a single integer $n$ ($1 \\leq n \\leq 50$).\n\nThe following $n - 1$ lines describe the tree edges. Each of these lines contains two integers $u_i, v_i$ — labels of vertices connected by the respective edge ($1 \\leq u_i, v_i \\leq n$, $u_i \\neq v_i$). It is guaranteed that the given graph is a tree.\n\n\n-----Output-----\n\nPrint $n$ floating numbers — the desired probabilities for labels $1, \\ldots, n$ respectively. All numbers should be correct up to $10^{-6}$ relative or absolute precision.\n\n\n-----Examples-----\nInput\n4\n1 2\n1 3\n1 4\n\nOutput\n0.1250000000\n0.2916666667\n0.2916666667\n0.2916666667\n\nInput\n7\n1 2\n1 3\n2 4\n2 5\n3 6\n3 7\n\nOutput\n0.0850694444\n0.0664062500\n0.0664062500\n0.1955295139\n0.1955295139\n0.1955295139\n0.1955295139\n\n\n\n-----Note-----\n\nIn the first sample, the resulting vertex has label 1 if and only if for all three edges the label 1 survives, hence the probability is $1/2^3 = 1/8$. All other labels have equal probability due to symmetry, hence each of them has probability $(1 - 1/8) / 3 = 7/24$.\n    \"\"\"\n",
+        "canonical_solution": "\ndef cWmVr():\n    maxn=50+10\n    g=[None]*maxn\n    dp=[None]*maxn\n    c=[None]*maxn\n    size=[0]*maxn\n    \n    for i in range(0,maxn):\n        c[i]=[0]*maxn\n        c[i][0]=1\n        for j in range(1,i+1):\n            c[i][j]=c[i-1][j-1]+c[i-1][j]\n    \n    n=int(input())\n    for i in range(1,n+1):\n        g[i]=[]\n    for i in range(1,n):\n        u,v=input().split()\n        u=int(u)\n        v=int(v)\n        g[u].append(v)\n        g[v].append(u)\n    \n    def mul(a,b,x,y):\n        tmp=[0]*(x+y+1)\n        for i in range(0,x+1):\n            for j in range(0,y+1):\n                tmp[i+j]+=a[i]*b[j]*c[i+j][i]*c[x+y-i-j][x-i]\n        return tmp\n    def dfs(pos,fa):\n        nonlocal dp\n        nonlocal size\n        dp[pos]=[1]\n        size[pos]=0\n        for ch in g[pos]:\n            if ch != fa:\n                dfs(pos=ch,fa=pos)\n                dp[pos]=mul(dp[pos],dp[ch],size[pos],size[ch])\n                size[pos]+=size[ch]\n        if fa:\n            size[pos]+=1\n            tmp=[0]*(size[pos]+1)\n            for i in range(0,size[pos]+1):\n                for j in range(0,size[pos]):\n                    if j<i:\n                        tmp[i]+=dp[pos][i-1]\n                    else:\n                        tmp[i]+=dp[pos][j]*0.5\n            dp[pos]=tmp\n    \n    for i in range(1,n+1):\n        dfs(pos=i,fa=0)\n        tmp=dp[i][0]\n        for j in range(1,n):\n            tmp/=j\n        print(tmp)",
+        "inputs": [
+            "4\n1 2\n1 3\n1 4\n",
+            "7\n1 2\n1 3\n2 4\n2 5\n3 6\n3 7\n",
+            "1\n"
+        ],
+        "outputs": [
+            "0.125\n0.2916666666666667\n0.2916666666666667\n0.2916666666666667\n",
+            "0.08506944444444446\n0.06640625\n0.06640625\n0.19552951388888892\n0.19552951388888892\n0.19552951388888892\n0.19552951388888892\n",
+            "1\n"
+        ],
+        "starter_code": "\ndef cWmVr():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                57
+            ],
+            [
+                "For Loop Body",
+                9,
+                13
+            ],
+            [
+                "For Loop Body",
+                12,
+                13
+            ],
+            [
+                "For Loop Body",
+                16,
+                17
+            ],
+            [
+                "For Loop Body",
+                18,
+                23
+            ],
+            [
+                "Function Body",
+                25,
+                30
+            ],
+            [
+                "For Loop Body",
+                27,
+                29
+            ],
+            [
+                "For Loop Body",
+                28,
+                29
+            ],
+            [
+                "Function Body",
+                31,
+                50
+            ],
+            [
+                "For Loop Body",
+                36,
+                40
+            ],
+            [
+                "If Statement Body",
+                37,
+                40
+            ],
+            [
+                "If Statement Body",
+                41,
+                50
+            ],
+            [
+                "For Loop Body",
+                44,
+                49
+            ],
+            [
+                "For Loop Body",
+                45,
+                49
+            ],
+            [
+                "If Statement Body",
+                46,
+                49
+            ],
+            [
+                "For Loop Body",
+                52,
+                57
+            ],
+            [
+                "For Loop Body",
+                55,
+                56
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 10
+    },
+    {
+        "prompt": "\ndef OLPcD():\n    \"\"\"We have a tree with N vertices. Vertex 1 is the root of the tree, and the parent of Vertex i (2 \\leq i \\leq N) is Vertex P_i.\nTo each vertex in the tree, Snuke will allocate a color, either black or white, and a non-negative integer weight.\nSnuke has a favorite integer sequence, X_1, X_2, ..., X_N, so he wants to allocate colors and weights so that the following condition is satisfied for all v.\n - The total weight of the vertices with the same color as v among the vertices contained in the subtree whose root is v, is X_v.\nHere, the subtree whose root is v is the tree consisting of Vertex v and all of its descendants.\nDetermine whether it is possible to allocate colors and weights in this way.\n\n-----Constraints-----\n - 1 \\leq N \\leq 1 000\n - 1 \\leq P_i \\leq i - 1\n - 0 \\leq X_i \\leq 5 000\n\n-----Inputs-----\nInput is given from Standard Input in the following format:\nN\nP_2 P_3 ... P_N\nX_1 X_2 ... X_N\n\n-----Outputs-----\nIf it is possible to allocate colors and weights to the vertices so that the condition is satisfied, print POSSIBLE; otherwise, print IMPOSSIBLE.\n\n-----Sample Input-----\n3\n1 1\n4 3 2\n\n-----Sample Output-----\nPOSSIBLE\n\nFor example, the following allocation satisfies the condition:\n - Set the color of Vertex 1 to white and its weight to 2.\n - Set the color of Vertex 2 to black and its weight to 3.\n - Set the color of Vertex 3 to white and its weight to 2.\nThere are also other possible allocations.\n    \"\"\"\n",
+        "canonical_solution": "\ndef OLPcD():\n    N=int(input())\n    P=[-1]+[int(i)-1 for i in input().split()]\n    X=[int(i) for i in input().split()]\n    Q=[[] for i in range(N)]\n    for i in range(1,N):\n        Q[P[i]].append(i)\n    dp=[0 for i in range(N)]\n    INF=10**9+7\n    def solve(i):\n        cur=[INF for j in range(X[i]+1)]\n        cur[0]=0\n        for j in Q[i]:\n            solve(j)\n            prv=[k for k in cur]\n            cur=[INF for k in range(X[i]+1)]\n            for acc in range(len(prv)):\n                if prv[acc]<INF:\n                    if acc+X[j]<=X[i]:\n                        cur[acc+X[j]]=min(cur[acc+X[j]],prv[acc]+dp[j])\n                    if acc+dp[j]<=X[i]:\n                        cur[acc+dp[j]]=min(cur[acc+dp[j]],prv[acc]+X[j])\n        dp[i]=min(cur)\n    solve(0)\n    if dp[0]<INF:\n        print(\"POSSIBLE\")\n    else:\n        print(\"IMPOSSIBLE\")\n    ",
+        "inputs": [
+            "3\n1 1\n4 3 2\n",
+            "3\n1 2\n1 2 3\n",
+            "8\n1 1 1 3 4 5 5\n4 1 6 2 2 1 3 3\n"
+        ],
+        "outputs": [
+            "POSSIBLE\n",
+            "IMPOSSIBLE\n",
+            "POSSIBLE\n"
+        ],
+        "starter_code": "\ndef OLPcD():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                29
+            ],
+            [
+                "List Comprehension",
+                4,
+                4
+            ],
+            [
+                "List Comprehension",
+                5,
+                5
+            ],
+            [
+                "List Comprehension",
+                6,
+                6
+            ],
+            [
+                "For Loop Body",
+                7,
+                8
+            ],
+            [
+                "List Comprehension",
+                9,
+                9
+            ],
+            [
+                "Function Body",
+                11,
+                24
+            ],
+            [
+                "List Comprehension",
+                12,
+                12
+            ],
+            [
+                "For Loop Body",
+                14,
+                23
+            ],
+            [
+                "List Comprehension",
+                16,
+                16
+            ],
+            [
+                "List Comprehension",
+                17,
+                17
+            ],
+            [
+                "For Loop Body",
+                18,
+                23
+            ],
+            [
+                "If Statement Body",
+                19,
+                23
+            ],
+            [
+                "If Statement Body",
+                20,
+                21
+            ],
+            [
+                "If Statement Body",
+                22,
+                23
+            ],
+            [
+                "If Statement Body",
+                26,
+                29
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 11
+    },
+    {
+        "prompt": "\ndef ZHhKf():\n    \"\"\"A bracket sequence is a string containing only characters \"(\" and \")\". A regular bracket sequence is a bracket sequence that can be transformed into a correct arithmetic expression by inserting characters \"1\" and \"+\" between the original characters of the sequence. For example, bracket sequences \"()()\" and \"(())\" are regular (the resulting expressions are: \"(1)+(1)\" and \"((1+1)+1)\"), and \")(\", \"(\" and \")\" are not.\n\nSubsequence is a sequence that can be derived from another sequence by deleting some elements without changing the order of the remaining elements.\n\nYou are given a regular bracket sequence $s$ and an integer number $k$. Your task is to find a regular bracket sequence of length exactly $k$ such that it is also a subsequence of $s$.\n\nIt is guaranteed that such sequence always exists.\n\n\n-----Input-----\n\nThe first line contains two integers $n$ and $k$ ($2 \\le k \\le n \\le 2 \\cdot 10^5$, both $n$ and $k$ are even) — the length of $s$ and the length of the sequence you are asked to find.\n\nThe second line is a string $s$ — regular bracket sequence of length $n$.\n\n\n-----Output-----\n\nPrint a single string — a regular bracket sequence of length exactly $k$ such that it is also a subsequence of $s$.\n\nIt is guaranteed that such sequence always exists.\n\n\n-----Examples-----\nInput\n6 4\n()(())\n\nOutput\n()()\n\nInput\n8 8\n(()(()))\n\nOutput\n(()(()))\n    \"\"\"\n",
+        "canonical_solution": "\ndef ZHhKf():\n    n, k = map(int, input().split())\n    a = [0] * n\n    b = ['0'] * n\n    c = []\n    s = input()\n    for i in range(n):\n        if k != 0:\n            if s[i] == '(':\n                c.append(i)\n            else:\n                d = c.pop()\n                a[i] = 1\n                a[d] = 1\n                k -= 2\n    for i in range(n):\n        if a[i] == 1:\n            print(s[i], end = '')\n    ",
+        "inputs": [
+            "6 4\n()(())\n",
+            "8 8\n(()(()))\n",
+            "20 10\n((()))()((()()(())))\n"
+        ],
+        "outputs": [
+            "()()\n",
+            "(()(()))\n",
+            "((()))()()\n"
+        ],
+        "starter_code": "\ndef ZHhKf():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                19
+            ],
+            [
+                "For Loop Body",
+                8,
+                16
+            ],
+            [
+                "If Statement Body",
+                9,
+                16
+            ],
+            [
+                "If Statement Body",
+                10,
+                16
+            ],
+            [
+                "For Loop Body",
+                17,
+                19
+            ],
+            [
+                "If Statement Body",
+                18,
+                19
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 12
+    },
+    {
+        "prompt": "\ndef HPpdB():\n    \"\"\"You are given a string A. Find a string B, where B is a palindrome and A is a subsequence of B.\n\nA subsequence of a string is a string that can be derived from it by deleting some (not necessarily consecutive) characters without changing the order of the remaining characters. For example, \"cotst\" is a subsequence of \"contest\".\n\nA palindrome is a string that reads the same forward or backward.\n\nThe length of string B should be at most 10^4. It is guaranteed that there always exists such string.\n\nYou do not need to find the shortest answer, the only restriction is that the length of string B should not exceed 10^4.\n\n\n-----Input-----\n\nFirst line contains a string A (1 ≤ |A| ≤ 10^3) consisting of lowercase Latin letters, where |A| is a length of A.\n\n\n-----Output-----\n\nOutput single line containing B consisting of only lowercase Latin letters. You do not need to find the shortest answer, the only restriction is that the length of string B should not exceed 10^4. If there are many possible B, print any of them.\n\n\n-----Examples-----\nInput\naba\n\nOutput\naba\nInput\nab\n\nOutput\naabaa\n\n\n-----Note-----\n\nIn the first example, \"aba\" is a subsequence of \"aba\" which is a palindrome.\n\nIn the second example, \"ab\" is a subsequence of \"aabaa\" which is a palindrome.\n    \"\"\"\n",
+        "canonical_solution": "\ndef HPpdB():\n    a = input()\n    b = a[::-1]\n    print(a + b)",
+        "inputs": [
+            "aba\n",
+            "ab\n",
+            "abcab\n"
+        ],
+        "outputs": [
+            "abaaba",
+            "abba",
+            "abcabbacba"
+        ],
+        "starter_code": "\ndef HPpdB():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                5
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 13
+    },
+    {
+        "prompt": "\ndef ARLCD():\n    \"\"\"During the last Sereja's Codesecrof round the server crashed many times, so the round was decided to be made unrated for some participants. \n\nLet's assume that n people took part in the contest. Let's assume that the participant who got the first place has rating a_1, the second place participant has rating a_2, ..., the n-th place participant has rating a_{n}. Then changing the rating on the Codesecrof site is calculated by the formula $d_{i} = \\sum_{j = 1}^{i - 1}(a_{j} \\cdot(j - 1) -(n - i) \\cdot a_{i})$.\n\nAfter the round was over, the Codesecrof management published the participants' results table. They decided that if for a participant d_{i} < k, then the round can be considered unrated for him. But imagine the management's surprise when they found out that the participants' rating table is dynamic. In other words, when some participant is removed from the rating, he is removed from the results' table and the rating is recalculated according to the new table. And of course, all applications for exclusion from the rating are considered in view of the current table.\n\nWe know that among all the applications for exclusion from the rating the first application to consider is from the participant with the best rank (the rank with the minimum number), for who d_{i} < k. We also know that the applications for exclusion from rating were submitted by all participants.\n\nNow Sereja wonders, what is the number of participants to be excluded from the contest rating, and the numbers of the participants in the original table in the order of their exclusion from the rating. Pay attention to the analysis of the first test case for a better understanding of the statement.\n\n\n-----Input-----\n\nThe first line contains two integers n, k (1 ≤ n ≤ 2·10^5,  - 10^9 ≤ k ≤ 0). The second line contains n space-separated integers a_1, a_2, ..., a_{n} (1 ≤ a_{i} ≤ 10^9) — ratings of the participants in the initial table.\n\n\n-----Output-----\n\nPrint the numbers of participants in the order in which they were removed from the table. Print the initial numbers of the participants, that is, the numbers that the participants had in the initial table.\n\n\n-----Examples-----\nInput\n5 0\n5 3 4 1 2\n\nOutput\n2\n3\n4\n\nInput\n10 -10\n5 5 1 7 5 1 2 4 9 2\n\nOutput\n2\n4\n5\n7\n8\n9\n\n\n\n-----Note-----\n\nConsider the first test sample. \n\n\n\n Initially the sequence of the contest participants' ratings equals [5, 3, 4, 1, 2]. You can use this sequence to calculate the sequence of rating changes: [0, -9, -13, 8, 14]. According to the problem statement, the application of the participant who won the second place will be considered first.\n\n As soon as the second place winner is out from the ratings, the participants' rating sequence will equal [5, 4, 1, 2]. By this sequence you can count the new sequence of rating changes: [0, -8, 2, 6]. According to the problem statement, the application of the participant who won the second place will be considered. Initially this participant won third place.\n\n The new rating sequence equals [5, 1, 2], the new sequence of rating changes equals [0, -1, 1]. The second place participant's application is taken into consideration, initially this participant won the fourth place.\n\n The new rating sequence equals [5, 2], the new sequence of rating changes equals [0, 0]. No more applications will be considered. \n\nThus, you should print 2, 3, 4.\n    \"\"\"\n",
+        "canonical_solution": "\ndef ARLCD():\n    n, k = list(map(int, input().split()))\n    c, m, l, r = 0, 0, [], 0\n    for e in [int(i) for i in input().split()]:\n        d = m - c * (n - c - 1) * e\n        r+= 1\n        if d < k:\n            n -= 1\n            l += [r]\n        else:\n            m += c * e\n            c += 1\n    l.sort()\n    for e in l: print(e)\n            \n            \n    ",
+        "inputs": [
+            "5 0\n5 3 4 1 2\n",
+            "10 -10\n5 5 1 7 5 1 2 4 9 2\n"
+        ],
+        "outputs": [
+            "2\n3\n4\n",
+            "2\n4\n5\n7\n8\n9\n"
+        ],
+        "starter_code": "\ndef ARLCD():\n",
+        "scope": [
+            [
+                "Function Body",
+                2,
+                15
+            ],
+            [
+                "For Loop Body",
+                5,
+                13
+            ],
+            [
+                "List Comprehension",
+                5,
+                5
+            ],
+            [
+                "If Statement Body",
+                8,
+                13
+            ],
+            [
+                "For Loop Body",
+                15,
+                15
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 14
+    },
+    {
+        "prompt": "\ndef JPrlk():\n    \"\"\"Little Petya likes permutations a lot. Recently his mom has presented him permutation q_1, q_2, ..., q_{n} of length n.\n\nA permutation a of length n is a sequence of integers a_1, a_2, ..., a_{n} (1 ≤ a_{i} ≤ n), all integers there are distinct. \n\nThere is only one thing Petya likes more than permutations: playing with little Masha. As it turns out, Masha also has a permutation of length n. Petya decided to get the same permutation, whatever the cost may be. For that, he devised a game with the following rules:  Before the beginning of the game Petya writes permutation 1, 2, ..., n on the blackboard. After that Petya makes exactly k moves, which are described below.  During a move Petya tosses a coin. If the coin shows heads, he performs point 1, if the coin shows tails, he performs point 2.  Let's assume that the board contains permutation p_1, p_2, ..., p_{n} at the given moment. Then Petya removes the written permutation p from the board and writes another one instead: p_{q}_1, p_{q}_2, ..., p_{q}_{n}. In other words, Petya applies permutation q (which he has got from his mother) to permutation p.  All actions are similar to point 1, except that Petya writes permutation t on the board, such that: t_{q}_{i} = p_{i} for all i from 1 to n. In other words, Petya applies a permutation that is inverse to q to permutation p. \n\nWe know that after the k-th move the board contained Masha's permutation s_1, s_2, ..., s_{n}. Besides, we know that throughout the game process Masha's permutation never occurred on the board before the k-th move. Note that the game has exactly k moves, that is, throughout the game the coin was tossed exactly k times.\n\nYour task is to determine whether the described situation is possible or else state that Petya was mistaken somewhere. See samples and notes to them for a better understanding.\n\n\n-----Input-----\n\nThe first line contains two integers n and k (1 ≤ n, k ≤ 100). The second line contains n space-separated integers q_1, q_2, ..., q_{n} (1 ≤ q_{i} ≤ n) — the permutation that Petya's got as a present. The third line contains Masha's permutation s, in the similar format.\n\nIt is guaranteed that the given sequences q and s are correct permutations.\n\n\n-----Output-----\n\nIf the situation that is described in the statement is possible, print \"YES\" (without the quotes), otherwise print \"NO\" (without the quotes).\n\n\n-----Examples-----\nInput\n4 1\n2 3 4 1\n1 2 3 4\n\nOutput\nNO\n\nInput\n4 1\n4 3 1 2\n3 4 2 1\n\nOutput\nYES\n\nInput\n4 3\n4 3 1 2\n3 4 2 1\n\nOutput\nYES\n\nInput\n4 2\n4 3 1 2\n2 1 4 3\n\nOutput\nYES\n\nInput\n4 1\n4 3 1 2\n2 1 4 3\n\nOutput\nNO\n\n\n\n-----Note-----\n\nIn the first sample Masha's permutation coincides with the permutation that was written on the board before the beginning of the game. Consequently, that violates the condition that Masha's permutation never occurred on the board before k moves were performed.\n\nIn the second sample the described situation is possible, in case if after we toss a coin, we get tails.\n\nIn the third sample the possible coin tossing sequence is: heads-tails-tails.\n\nIn the fourth sample the possible coin tossing sequence is: heads-heads.\n    \"\"\"\n",
+        "canonical_solution": "import sys\nfrom math import *\ndef JPrlk():\n    def minp():\n    \treturn sys.stdin.readline().strip()\n    def mint():\n    \treturn int(minp())\n    def mints():\n    \treturn list(map(int, minp().split()))\n    n, k = mints()\n    q = list(mints())\n    for i in range(n):\n    \tq[i] -= 1\n    s = list(mints())\n    a = [i for i in range(1,n+1)]\n    d = [0]*n\n    b = [False]*(k+1)\n    c = [False]*(k+1)\n    e = [10000]*2\n    f = [10000]*2\n    for i in range(k+1):\n    \t#print(a)\n    \tb[i] = (a == s)\n    \tif b[i]:\n    \t\te[i%2] = min(e[i%2], i)\n    \tfor j in range(n):\n    \t\td[j] = a[q[j]]\n    \ta,d = d,a\n    #print('====')\n    a = [i for i in range(1,n+1)]\n    for i in range(k+1):\n    \t#print(a)\n    \tc[i] = (a == s)\n    \tif c[i]:\n    \t\tf[i%2] = min(f[i%2], i)\n    \tfor j in range(n):\n    \t\td[q[j]] = a[j]\n    \ta,d = d,a\n    #print('====')\n    #print(e)\n    #print(f)\n    if e[0] == 0:\n    \tprint('NO')\n    elif e[1] == 1:\n    \tif f[1] == 1 and k > 1:\n    \t\tprint('NO')\n    \telif k%2 == 1 or f[k%2] <= k:\n    \t\tprint('YES')\n    \telse:\n    \t\tprint('NO')\n    elif f[1] == 1:\n    \tif k%2 == 1 or e[k%2] <= k:\n    \t\tprint('YES')\n    \telse:\n    \t\tprint('NO')\n    else:\n    \tif e[k%2] <= k or f[k%2] <= k:\n    \t\tprint('YES')\n    \telse:\n    \t\tprint('NO')",
+        "inputs": [
+            "4 1\n2 3 4 1\n1 2 3 4\n",
+            "4 1\n4 3 1 2\n3 4 2 1\n",
+            "4 3\n4 3 1 2\n3 4 2 1\n"
+        ],
+        "outputs": [
+            "NO\n",
+            "YES\n",
+            "YES\n"
+        ],
+        "starter_code": "\ndef JPrlk():\n",
+        "scope": [
+            [
+                "Function Body",
+                3,
+                60
+            ],
+            [
+                "Function Body",
+                4,
+                5
+            ],
+            [
+                "Function Body",
+                6,
+                7
+            ],
+            [
+                "Function Body",
+                8,
+                9
+            ],
+            [
+                "For Loop Body",
+                12,
+                13
+            ],
+            [
+                "List Comprehension",
+                15,
+                15
+            ],
+            [
+                "For Loop Body",
+                21,
+                28
+            ],
+            [
+                "If Statement Body",
+                24,
+                25
+            ],
+            [
+                "For Loop Body",
+                26,
+                27
+            ],
+            [
+                "List Comprehension",
+                30,
+                30
+            ],
+            [
+                "For Loop Body",
+                31,
+                38
+            ],
+            [
+                "If Statement Body",
+                34,
+                35
+            ],
+            [
+                "For Loop Body",
+                36,
+                37
+            ],
+            [
+                "If Statement Body",
+                42,
+                60
+            ],
+            [
+                "If Statement Body",
+                44,
+                60
+            ],
+            [
+                "If Statement Body",
+                45,
+                50
+            ],
+            [
+                "If Statement Body",
+                47,
+                50
+            ],
+            [
+                "If Statement Body",
+                51,
+                60
+            ],
+            [
+                "If Statement Body",
+                52,
+                55
+            ],
+            [
+                "If Statement Body",
+                57,
+                60
+            ]
+        ],
+        "difficulty": "competition",
+        "id": 15
+    }
+]

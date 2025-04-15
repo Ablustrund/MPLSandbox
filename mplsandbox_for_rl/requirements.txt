@@ -1,0 +1,11 @@
+accelerate
+deepspeed
+setuptools==59.5.0
+pandas
+cpm_kernels
+sentencepiece
+jionlp==1.4.14
+sacrebleu
+nltk
+rouge
+tensorboard

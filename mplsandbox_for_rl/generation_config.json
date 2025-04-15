@@ -1,0 +1,9 @@
+{
+  "do_sample": true,
+  "max_new_tokens": 1024,
+  "repetition_penalty": 1.1,
+  "temperature": 0.2,
+  "top_k": 40,
+  "top_p": 0.9,
+  "transformers_version": "4.30.2"
+}
