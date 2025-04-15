@@ -134,6 +134,10 @@ Then, users can access the service using the curl command or other methods, and 
 ./test_app.sh
 ```
 
+## Providing feedback signals in RL
+
+MPLSandbox can also provide stable compilation feedback signals for RLCF tasks. For specific implementation details, please refer to the `mplsandbox_for_rl` project.
+
 # 🧑‍💻 Developing
 We are working hard to refactor and improve the open-source version of MPLSandbox to closely match the functionality of the version used internally by Meituan LLM Team. We are currently working hard to reconstruct analysis tools for languages such as Go, JavaScript, and Ruby to achieve better code analysis and automated testing.
 
